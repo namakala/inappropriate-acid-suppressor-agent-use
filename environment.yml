@@ -1,0 +1,6 @@
+name: R
+channels:
+  - conda-forge
+dependencies:
+  - r==4.5
+  - r-base=4.5.2
