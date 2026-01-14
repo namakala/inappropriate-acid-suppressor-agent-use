@@ -22,8 +22,13 @@ seed <- 1810
 # Set paths for the raw data
 raws <- lsData(pattern = "*csv")
 
-# Set variables for metaregression reference
-varnames <- c(
+# Set variables for subgroup meta-analysis and metaregression reference
+uni_vars <- c(
+  "Age", "Continent", "Setting", "JBI_Classification", "n_guideline",
+  "use_guideline"
+)
+
+mv_vars <- c(
   "Year", "JBI_Classification", "use_guideline", "Setting", "Continent"
 )
 
@@ -44,7 +49,7 @@ list(
 
   # Subgroup analysis by given column name
   tar_map(
-    values = list("colname" = c("Age", "Continent", "Setting", "JBI_Classification", "n_guideline", "use_guideline")),
+    values = list("colname" = uni_vars),
     unlist = FALSE,
     tar_target(mod_subgroup, fitSubMetaprop(tbl_clean, varname = rlang::sym(colname))),
     tar_target(
@@ -60,11 +65,11 @@ list(
 
   # Univariable and multivariable meta-regression models
   tar_map(
-    values = list(varname = varnames),
+    values = list("varname" = uni_vars),
     unlist = FALSE,
     tar_target(mod_metareg, fitMetareg(tbl_clean, varname))
   ),
-  tar_target(mod_metareg_mv, fitMetareg(tbl_clean, varnames)),
+  tar_target(mod_metareg_mv, fitMetareg(tbl_clean, mv_vars)),
 
   # Generate documentation
   tar_quarto(readme, "README.qmd", priority = 0)

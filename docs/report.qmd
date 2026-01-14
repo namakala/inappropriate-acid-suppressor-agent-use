@@ -1,0 +1,155 @@
+---
+title: "Meta-Analysis Interim Report"
+format: pdf
+metadata-files:
+  - _knitr-bib.yml
+---
+
+```{r init}
+
+options(scipen = 99)
+pkgs <- c("magrittr", "targets")
+pkgs_load <- sapply(pkgs, library, character.only = TRUE)
+
+```
+
+# Meta-analysis on the whole dataset
+
+```{r helper-functions}
+
+catf <- function(msg, ...) {
+  sprintf(msg, ...) |> cat()
+}
+
+getMetaDetails <- function(meta_object) {
+
+  msg <- capture.output(
+    meta:::catmeth(
+      meta_object,  
+      common          = TRUE,  
+      random          = TRUE,   
+      print.tau2      = TRUE,
+      overall         = TRUE,  
+      overall.hetstat = TRUE,  
+      backtransf      = FALSE,  
+      prediction      = FALSE,  
+      print.tau2.ci   = TRUE,
+      print.I2        = FALSE,
+      func.transf     = meta_object$func.transf,  
+      func.backtransf = meta_object$func.backtransf,  
+      big.mark        = ",",   
+      digits          = 3,  
+      digits.tau      = 3,  
+      text.tau        = "$\\tau$",   
+      text.tau2       = "$\\tau^2$",  
+      text.I2         = "$I^2$"
+    )
+  )
+
+  clean_msg <- msg[-1] %>%
+    {gsub(x = ., ":$", ":\n\n")} |>
+    paste(collapse = "\n")
+
+  return(clean_msg)
+
+}
+
+printSummary <- function(mod, detail = FALSE) {
+  require("meta")
+
+  msg_hetero <- c("$\\tau^2$: %.3f", "$I^2$: %.2f%%", "$H$: %.2f", "Wald's $Q$: %s\n\n") |>
+    paste(collapse = "\n- ")
+
+  res <- summary(mod)
+
+  catf(
+    "**%s: %.3f [%.3f, %.3f]**  \n",
+    res$text.random,
+    logit2p(res$TE.random),
+    logit2p(res$lower.random),
+    logit2p(res$upper.random)
+  )
+  catf("Number of studies: %d  \n", res$k)
+  catf("Number of observations: %s  \n", prettyNum(sum(res$n), big.mark = ","))
+  catf("Number of events: %s  \n\n", prettyNum(sum(res$event), big.mark = ","))
+  cat("Heterogeneity measures:\n\n")
+  catf(
+    paste("-", msg_hetero),
+    res$tau2,
+    res$I2 * 100,
+    res$H,
+    prettyNum(res$Q[[1]], big.mark = ",")
+  )
+  if (detail) {
+    cat(getMetaDetails(mod))
+  }
+}
+
+```
+
+```{r meta-summary, results = "asis"}
+#| fig-height: 5
+
+funnel_title <- "Publication bias and small-study effects for model: %s"
+
+tar_load(mod_prop)
+printSummary(mod_prop, detail = FALSE)
+
+meta::funnel(mod_prop, type = "contour")
+title(sprintf(funnel_title, "mod_prop"))
+
+```
+
+\pagebreak
+
+# Subgroup meta-analysis
+
+```{r subgroup-summary, results = "asis"}
+
+obj_subgroups <- tar_objects(dplyr::contains("mod_subgroup"))
+
+for (obj in obj_subgroups) {
+  catf("\n## Model: `%s`\n\n", obj)
+  tar_load(obj)
+  printSummary(get(obj))
+  meta::funnel(get(obj), type = "contour")
+  title(sprintf(funnel_title, obj))
+  cat("\n\n")
+  cat("\\pagebreak")
+}
+
+```
+
+# Meta-regression
+
+## Univariate models
+
+```{r metareg-uni-summary, results = "asis"}
+
+obj_metareg_uni <- tar_objects(dplyr::contains("mod_metareg")) %>%
+  {.[!grepl(x = ., "_mv")]}
+
+for (obj in obj_metareg_uni) {
+  catf("\n### Model: `%s`\n\n", obj)
+  tar_load(obj)
+  cat("```\n\n")
+  summary(get(obj)) |> metafor:::print.summary.rma()
+  cat("```\n\n")
+  meta::funnel(get(obj))
+  title(sprintf(funnel_title, obj))
+  cat("\n\n")
+  cat("\\pagebreak")
+}
+
+```
+
+## Multivariate model
+
+```{r metareg-mv-summary, echo = TRUE}
+
+tar_load(mod_metareg_mv)
+summary(mod_metareg_mv)
+meta::funnel(mod_metareg_mv)
+title(sprintf(funnel_title, "mod_metareg_mv"))
+
+```

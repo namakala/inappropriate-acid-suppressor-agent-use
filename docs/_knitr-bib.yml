@@ -6,7 +6,7 @@ knitr:
     message: false
     warning: false
     fig.width: 10
-    fig.height: 8
+    fig.height: 6
     out.width: "100%"
     comment: "|"
 

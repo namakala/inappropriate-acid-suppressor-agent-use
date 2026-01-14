@@ -24,13 +24,16 @@ plt_funnel_subgroup_Continent|stem|39da8b558a3ee4bc|25235da2537ef14b|1a92d6ccab3
 plt_forest_subgroup_Setting|stem|f646de9ea72823ee|c60b6042cfc6d3be|8eedbe06aa8e993b|-288552749||t20467.7155898022s|s5228b|5228|rds|local|vector|||1.004|conversion failure on 'Kalaitzakis and Bjo ̈rnsson' in 'mbcsToSbcs': for ̈ (U+0308). conversion failure on 'Villamañán, et al.' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al.' in 'mbcsToSbcs': ' substituted for ’ (U+2019). conversion failure on 'Pasina, et al.†' in 'mbcsToSbcs': for † (U+2020). conversion failure on 'Pasina, et al.‡' in 'mbcsToSbcs': for ‡ (U+2021). conversion failure on 'Mares-Garcıa, et al.' in 'mbcsToSbcs': for ı (U+0131)|
 plt_forest_subgroup_n_guideline|stem|528573517a4721c3|f4e516e400fd34fd|b7d4c6b69b42c336|-1097270100||t20467.71559365s|s5466b|5466|rds|local|vector|||1.302|conversion failure on 'Pasina, et al.†' in 'mbcsToSbcs': for † (U+2020). conversion failure on 'Mares-Garcıa, et al.' in 'mbcsToSbcs': for ı (U+0131). conversion failure on 'Pasina, et al.‡' in 'mbcsToSbcs': for ‡ (U+2021). conversion failure on 'Kalaitzakis and Bjo ̈rnsson' in 'mbcsToSbcs': for ̈ (U+0308). conversion failure on 'Villamañán, et al.' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al.' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
 plt_forest_subgroup_use_guideline|stem|03e879c0623119de|1b3675ca6db15947|e648f1be08ba613a|-889681374||t20467.7155944457s|s5314b|5314|rds|local|vector|||0.771|conversion failure on 'Pasina, et al.‡' in 'mbcsToSbcs': for ‡ (U+2021). conversion failure on 'Kalaitzakis and Bjo ̈rnsson' in 'mbcsToSbcs': for ̈ (U+0308). conversion failure on 'Villamañán, et al.' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al.' in 'mbcsToSbcs': ' substituted for ’ (U+2019). conversion failure on 'Pasina, et al.†' in 'mbcsToSbcs': for † (U+2020). conversion failure on 'Mares-Garcıa, et al.' in 'mbcsToSbcs': for ı (U+0131)|
-mod_metareg_Year|stem|8fd86df2413316e5|eaeda0b67e292d3d|05f68c7bf80fe1be|-2104654275||t20467.7243157056s|s32534b|32534|rds|local|vector|||1.539|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
 mod_metareg_Continent|stem|d90e0d032cb8e1b7|9c5af9e61733e2ec|05f68c7bf80fe1be|82995815||t20467.7243206454s|s33008b|33008|rds|local|vector|||0.039|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
 mod_metareg_JBI_Classification|stem|216ff3ce7aa7cbca|f91f92a806c04601|05f68c7bf80fe1be|-644420020||t20467.7243215164s|s32328b|32328|rds|local|vector|||1.513|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
 mod_metareg_use_guideline|stem|b5c8ee0ee1ac8092|1a183b80696aa0ab|05f68c7bf80fe1be|-1342049052||t20467.7243255223s|s32413b|32413|rds|local|vector|||0.047|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
 mod_metareg_Setting|stem|b20837f3db8a316a|e97ce0860aea2010|05f68c7bf80fe1be|-56748310||t20467.7243300344s|s32167b|32167|rds|local|vector|||1.63|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
 mod_metareg_Age|stem|70f99d9169cc5dc6|985d1acaa2db4176|05f68c7bf80fe1be|418752239||t20467.7243364278s|s25874b|25874|rds|local|vector|||1.587|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
+colnames|object|b649cf59552b4242
+varnames|object|e320e5a1eb34a99b
+mod_metareg_n_guideline|stem|043b7c49d38c3d09|327dfb399ef087ac|05f68c7bf80fe1be|934605950||t20467.8132301667s|s33770b|33770|rds|local|vector|||1.276|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
 readData|function|fa8676af4df3e7d0
+uni_vars|object|b649cf59552b4242
 fitMetareg|function|6aaa09353734be32
 funs|object|90aeb6d2a31fc02d
 fitMetaprop|function|bddd38fa506858b0
@@ -39,10 +42,10 @@ vizForest|function|3ab4ef4323fdd745
 clean|function|0fdefe609108ea8c
 pkgs|object|baaf8c1678b0b905
 raws|object|3da85189befb7c3b
-.Random.seed|object|4a2d11a63f92e4a8
-varnames|object|e320e5a1eb34a99b
+.Random.seed|object|82f1090e288e3af2
 pkgs_load|object|0c5ddf24abf09d0e
 seed|object|b831a550d92b48f0
+mv_vars|object|e320e5a1eb34a99b
 lsData|function|f3501a44679b5b7d
 fitSubMetaprop|function|6c3e3b21eb513bb4
-mod_metareg_mv|stem|01f9bfaa85a4f617|255c1c907a64c987|28a9d0a0183392b6|666694482||t20467.7247721265s|s36114b|36114|rds|local|vector|||1.16|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
+mod_metareg_mv|stem|561778b8baea3420|01596653f7d310f5|eb1f3e043e30ade3|666694482||t20467.8152078183s|s36118b|36118|rds|local|vector|||1.263|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
