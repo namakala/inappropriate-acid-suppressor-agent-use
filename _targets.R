@@ -24,12 +24,12 @@ raws <- lsData(pattern = "*csv")
 
 # Set variables for subgroup meta-analysis and metaregression reference
 uni_vars <- c(
-  "Age", "Continent", "Setting", "JBI_Classification", "n_guideline",
-  "use_guideline"
+  "Age", "Continent", "Setting", "JBI_Classification", "use_guideline"
 )
 
 mv_vars <- c(
-  "Year", "JBI_Classification", "use_guideline", "Setting", "Continent"
+  "Year", "JBI_Classification", "use_guideline", "Setting", "Continent",
+  "Sample_size"
 )
 
 # Set the analysis pipeline
@@ -44,6 +44,7 @@ list(
 
   # Meta-analysis of proportion data
   tar_target(mod_prop, fitMetaprop(tbl_clean)),
+  tar_target(mod_copas_prop, applyCopas(mod_prop)),
   tar_target(plt_forest_prop, vizForest(mod_prop, file = "docs/figures/meta-analysis-prevalence.pdf")),
   tar_target(plt_funnel_prop, vizFunnel(mod_prop)),
 
@@ -52,6 +53,7 @@ list(
     values = list("colname" = uni_vars),
     unlist = FALSE,
     tar_target(mod_subgroup, fitSubMetaprop(tbl_clean, varname = rlang::sym(colname))),
+    tar_target(mod_copas_subgroup, applyCopas(tbl_clean, varname = colname)),
     tar_target(
       plt_forest_subgroup,
       vizForest(
@@ -72,6 +74,7 @@ list(
   tar_target(mod_metareg_mv, fitMetareg(tbl_clean, mv_vars)),
 
   # Generate documentation
+  tar_quarto(report, "docs/report.qmd"),
   tar_quarto(readme, "README.qmd", priority = 0)
 
 )

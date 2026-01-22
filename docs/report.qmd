@@ -13,6 +13,17 @@ pkgs_load <- sapply(pkgs, library, character.only = TRUE)
 
 ```
 
+# Methods
+
+- When funnel plot seemed asymmetrical, doi plot was preferred to avoid subjective selection.
+- Copas model selection was performed as a sensitivity analysis to detect and adjust for publication bias.
+- Further reading list:
+  - https://www.sciencedirect.com/science/article/abs/pii/S0895435609002236
+  - https://www.jclinepi.com/article/S0895-4356(08)00348-X/abstract
+  - https://onlinelibrary.wiley.com/doi/full/10.1002/jrsm.1266
+
+\pagebreak
+
 # Meta-analysis on the whole dataset
 
 ```{r helper-functions}
@@ -88,7 +99,7 @@ printSummary <- function(mod, detail = FALSE) {
 ```
 
 ```{r meta-summary, results = "asis"}
-#| fig-height: 5
+#| fig-height: 4
 
 funnel_title <- "Publication bias and small-study effects for model: %s"
 
@@ -99,6 +110,23 @@ meta::funnel(mod_prop, type = "contour")
 title(sprintf(funnel_title, "mod_prop"))
 
 ```
+
+```{r meta-summary-doi}
+#| fig-height: 4
+
+metasens::doiplot(mod_prop) # Recommended over funnel plot (10.1111/jebm.70063)
+
+```
+
+```{r meta-summary-copas}
+#| fig-height: 8
+
+tar_read(mod_copas_prop) %T>% plot() |> summary()
+
+```
+
+\pagebreak
+
 
 \pagebreak
 
@@ -112,9 +140,15 @@ for (obj in obj_subgroups) {
   catf("\n## Model: `%s`\n\n", obj)
   tar_load(obj)
   printSummary(get(obj))
-  meta::funnel(get(obj), type = "contour")
+  #meta::funnel(get(obj), type = "contour")
+  metasens::doiplot(get(obj))
   title(sprintf(funnel_title, obj))
   cat("\n\n")
+  obj_copas <- gsub(x = obj, "mod", "mod_copas")
+  tar_load(obj_copas)
+  cat("```\n\n")
+  lapply(get(obj_copas), summary) |> print()
+  cat("```\n\n")
   cat("\\pagebreak")
 }
 

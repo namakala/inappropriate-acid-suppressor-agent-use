@@ -21,6 +21,7 @@ fitMetaprop <- function(tbl, ...) {
     method.random.ci = "HK",
     common           = FALSE,
     random           = TRUE,
+    prediction       = TRUE,
     ...
   )
 
@@ -39,7 +40,10 @@ fitSubMetaprop <- function(tbl, varname, ...) {
 
   idx     <- !is.na(tbl[[rlang::as_name(varname)]])
   sub_tbl <- tbl |> dplyr::filter(idx)
-  mod     <- sub_tbl %>% fitMetaprop(subgroup = dplyr::pull(., {{ varname }}))
+
+  mod <- sub_tbl %>% fitMetaprop(
+    subgroup = dplyr::pull(., {{ varname }}), keepdata = TRUE
+  )
 
   return(mod)
 }
@@ -82,4 +86,38 @@ fitMetareg <- function(tbl, varname, ...) {
   )
 
   return(mod)
+}
+
+applyCopas <- function(obj, varname = NULL, ...) {
+  #' Copas Selection objel
+  #'
+  #' Perform a Copas selection objel analysis on a given meta-analysis objel.
+  #' This analysis will adjust for the probability of publication bias.
+  #'
+  #' @param obj A meta-analysis model from the `meta` package, otherwise a data
+  #' frame object.
+  #' @param varname Variable name indicating which variable is used to subste
+  #' the dataset.
+  #'
+  #' @return A Copas analysis object
+  require("metasens")
+  require("meta")
+
+  tbl <- obj
+
+  if (grepl(x = obj, "meta") |> any()) {
+    mod_copas <- metasens::copas(obj, backtransf = TRUE, ...)
+    return(mod_copas)
+  } else if (is.null(varname)) {
+    mod <- fitMetaprop(obj)
+    mod_copas <- applyCopas(mod)
+    return(mod_copas)
+  }
+
+  groups <- tbl[[varname]] |> unique() |> na.omit()
+  sub_tbls <- lapply(groups, \(group) tbl %>% subset(.[[varname]] == group))
+  sub_metas <- lapply(sub_tbls, \(sub_tbl) fitMetaprop(sub_tbl))
+  mod_copas <- lapply(sub_metas, applyCopas)
+
+  return(mod_copas)
 }

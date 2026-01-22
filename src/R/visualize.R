@@ -25,6 +25,7 @@ vizForest <- function(mod, ...) {
     width       = 9,
     colgap.left = "0.15cm",
     fontsize    = 10,
+    prediction  = TRUE,
     ...
   )
 
