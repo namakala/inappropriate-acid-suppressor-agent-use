@@ -21,6 +21,8 @@ pkgs_load <- sapply(pkgs, library, character.only = TRUE)
   - https://www.sciencedirect.com/science/article/abs/pii/S0895435609002236
   - https://www.jclinepi.com/article/S0895-4356(08)00348-X/abstract
   - https://onlinelibrary.wiley.com/doi/full/10.1002/jrsm.1266
+  - https://www.researchgate.net/profile/Jian-Shi-41/publication/11852731_A_sensitivity_analysis_for_publication_bias_in_systematic_reviews/links/00b7d53aa9d6b6ba26000000/A-sensitivity-analysis-for-publication-bias-in-systematic-reviews.pdf
+  - https://www.researchgate.net/publication/395029107_Examining_and_Interpreting_Doi_Plot_Asymmetry_in_Meta-Analyses_of_Randomized_Controlled_Trials
 
 \pagebreak
 
