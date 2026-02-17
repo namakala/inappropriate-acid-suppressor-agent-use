@@ -1,6 +1,8 @@
 ---
 title: "Meta-Analysis Interim Report"
-format: pdf
+format:
+  pdf:
+    keep-md: true
 metadata-files:
   - _knitr-bib.yml
 ---
@@ -13,21 +15,6 @@ pkgs_load <- sapply(pkgs, library, character.only = TRUE)
 
 ```
 
-# Methods
-
-- When funnel plot seemed asymmetrical, doi plot was preferred to avoid subjective selection.
-- Copas model selection was performed as a sensitivity analysis to detect and adjust for publication bias.
-- Further reading list:
-  - https://www.sciencedirect.com/science/article/abs/pii/S0895435609002236
-  - https://www.jclinepi.com/article/S0895-4356(08)00348-X/abstract
-  - https://onlinelibrary.wiley.com/doi/full/10.1002/jrsm.1266
-  - https://www.researchgate.net/profile/Jian-Shi-41/publication/11852731_A_sensitivity_analysis_for_publication_bias_in_systematic_reviews/links/00b7d53aa9d6b6ba26000000/A-sensitivity-analysis-for-publication-bias-in-systematic-reviews.pdf
-  - https://www.researchgate.net/publication/395029107_Examining_and_Interpreting_Doi_Plot_Asymmetry_in_Meta-Analyses_of_Randomized_Controlled_Trials
-
-\pagebreak
-
-# Meta-analysis on the whole dataset
-
 ```{r helper-functions}
 
 catf <- function(msg, ...) {
@@ -35,7 +22,7 @@ catf <- function(msg, ...) {
 }
 
 getMetaDetails <- function(meta_object) {
-
+  
   msg <- capture.output(
     meta:::catmeth(
       meta_object,  
@@ -67,8 +54,16 @@ getMetaDetails <- function(meta_object) {
 
 }
 
+pft2p <- function(x, n) {
+  harmonic_n <- {1 / mean(1 / n)}
+  p <- meta::backtransf(x, sm = "PFT", n = harmonic_n)
+  return(p)
+}
+
 printSummary <- function(mod, detail = FALSE) {
   require("meta")
+
+  harmonic_n <- {1 / mean(1 / mod$n)}
 
   msg_hetero <- c("$\\tau^2$: %.3f", "$I^2$: %.2f%%", "$H$: %.2f", "Wald's $Q$: %s\n\n") |>
     paste(collapse = "\n- ")
@@ -78,9 +73,9 @@ printSummary <- function(mod, detail = FALSE) {
   catf(
     "**%s: %.3f [%.3f, %.3f]**  \n",
     res$text.random,
-    logit2p(res$TE.random),
-    logit2p(res$lower.random),
-    logit2p(res$upper.random)
+    pft2p(res$TE.random,    n = mod$n),
+    pft2p(res$lower.random, n = mod$n),
+    pft2p(res$upper.random, n = mod$n)
   )
   catf("Number of studies: %d  \n", res$k)
   catf("Number of observations: %s  \n", prettyNum(sum(res$n), big.mark = ","))
@@ -100,12 +95,128 @@ printSummary <- function(mod, detail = FALSE) {
 
 ```
 
+# Executive Summary
+
+Inappropriate use of acid suppressing agents was highly prevalent, affecting approximately seven in ten prescriptions globally. Extremely high heterogeneity was observed across all analyses, indicating considerable variation by population, setting, geography, and definitional criteria. Pooled prevalence estimates were robust to adjustment for potential publication bias. Variation in guideline definitions emerged as a key driver of heterogeneity across studies.
+
+**Call to Actions:**
+
+- Clinical Practice: There is a substantial and persistent overuse or misuse of acid suppressing agents across settings and regions.
+- Policy: Standardized definitions of appropriateness are needed to improve comparability across studies and to guide deprescribing initiatives.
+- Research: Future studies should clearly define guideline criteria and report context-specific drivers of inappropriate prescribing.
+- Quality Improvement: Interventions targeting prescribing behavior are warranted, particularly in high-prevalence settings.
+
+\pagebreak
+
+# Methods
+
+## Data Processing and Variable Standardization
+
+Raw data were cleaned by harmonizing of study level variables and standardizing the outcome measures across all included studies. The prevalence of inappropriate use of acid suppressing agents was calculated as the proportion of participants within each study who met criteria for inappropriate use relative to the total study specific sample size.  To support statistical modeling, prevalence estimates were logit transformed, and corresponding sampling variances were computed for each study.  Geographic region was classified as North America, Asia, Europe, or Other. Clinical setting was dichotomized as hospital setting versus other settings. Guideline adherence was categorized as studies that explicitly followed defined clinical guidelines versus those that did not specify guideline use.
+
+## Pooled Prevalence Estimation
+
+The data was fitted to random effects models to account for anticipated between study heterogeneity in prevalence estimates. The Freeman-Tukey double arcsine transformation was applied to stabilize variances and ensure that resulting confidence intervals remained within the 0 to 1 range. Between study variance $\tau^2$ was estimated using the restricted maximum likelihood method. The Hartung-Knapp adjustment was applied to provide more conservative 95% confidence intervals and reduce the risk of Type I error. A 95% prediction interval was also calculated to estimate the expected range of prevalence in future studies with similar characteristics.
+
+## Assessment of Heterogeneity
+
+Statistical heterogeneity was evaluated using $I^2$, $\tau^2$, H statistics, and Wald's Q test. Given the high heterogeneity observed, potential sources of variability were explored through subgroup analyses and meta regression.  Subgroup analyses were conducted for categorical variables, including age group, continent, clinical setting, methodological quality according to JBI classification, and guideline use. Separate random effects models were fitted within each subgroup.  Univariable and multivariable meta regression analyses were also performed to further explore the potential source of heterogeneity. These models examined the association between study level covariates, including publication year and sample size, and the logit transformed prevalence of inappropriate use.
+
+## Publication Bias and Sensitivity Analysis
+
+Contour enhanced funnel plots were generated to assess potential small study effects and publication bias. To further evaluate and adjust for potential selection bias, the Copas selection model was applied. This approach models the probability of study inclusion as a function of effect size and statistical significance, allowing adjustment of pooled estimates under varying selection assumptions. Copas modeling was conducted for the overall dataset and within predefined subgroups.
+
+## Software and Reproducibility
+
+All analyses were conducted in `R` version 4.5.1. The computational workflow was managed using the `targets` and `tarchetypes` packages to ensure full reproducibility and traceability of all analytical steps. Parallel processing was implemented with the `crew` package to optimize execution of iterative subgroup and meta regression models.
+
+# Results
+
+```{r}
+
+tar_load(mod_prop)
+
+n <- sum(mod_prop$n) |> prettyNum(big.mark = ",")
+k <- mod_prop$k
+event <- sum(mod_prop$event) |> prettyNum(big.mark = ",")
+
+prev <- with(
+  mod_prop, lapply(
+    c(TE.random, lower.random, upper.random), function(x) {
+      round(pft2p(x, n = n) * 100, 2)
+    }
+  )
+) |> set_names(c("p", "lb", "ub"))
+
+```
+
+## Overall Prevalence of Inappropriate Use
+
+This meta-analysis included `r k` studies comprising `r n` participants. Across these studies, `r event` instances of inappropriate use of acid suppressing agents were identified. Using a random effects model, the pooled prevalence of inappropriate use was `r prev$p`% [`r prev$lb`-`r prev$ub`%].
+
+## Heterogeneity
+
+```{r}
+
+I2   <- round(mod_prop$I2 * 100, 2)
+tau2 <- round(mod_prop$tau2, 3)
+H    <- round(mod_prop$H, 2)
+Q    <- prettyNum(mod_prop$Q, big.mark = ",")
+
+```
+
+Substantial between study heterogeneity was observed. The $I^2$ statistic was `r I2`%, $\tau^2$ was `r tau2`, H was `r H`, and Wald's Q was `r Q`. The extremely high $I^2$ value indicates that nearly all observed variability in prevalence estimates was attributable to true differences across studies rather than sampling error. Reported prevalence estimates varied widely, confirming marked heterogeneity and suggesting that inappropriate use is strongly influenced by contextual and study level factors.
+
+## Publication Bias and Small Study Effects
+
+Visual inspection of Doi plots suggested asymmetry in some models. Copas selection modeling was conducted to evaluate and adjust for potential publication bias. The Copas adjusted estimate for the overall dataset was essentially identical to the unadjusted pooled estimate, and no meaningful change in prevalence was observed after adjustment. Tests for residual selection bias were generally non significant. These findings indicate that although small study effects may be present, publication bias is unlikely to materially influence the overall pooled prevalence.
+
+## Subgroup Analyses
+
+## Age
+
+Across age strata, the pooled prevalence of inappropriate use remained high, with estimates exceeding 80% in several subgroups. Heterogeneity remained substantial within these strata, with $I^2$ values exceeding 99%. In some age groups, Copas modeling suggested possible small study effects; however, adjusted and unadjusted estimates were not significantly different.
+
+## Continent
+
+Pooled prevalence estimates varied across continents, suggesting geographic variation in prescribing practices and implementation of guidelines. Nevertheless, heterogeneity persisted within continental subgroups, indicating that geographic location alone did not fully account for the observed variability.
+
+## Study Quality
+
+When stratified according to methodological quality using JBI classification, pooled prevalence estimates differed modestly between quality strata. However, inappropriate use remained consistently high across all levels of study quality. Adjustment for potential selection bias did not substantially alter subgroup specific estimates.
+
+## Clinical Setting
+
+Differences in pooled prevalence were observed between inpatient and outpatient settings, with some settings demonstrating higher rates of inappropriate use. Even in the subgroup with the lowest prevalence, inappropriate prescribing remained common.
+
+## Meta Regression
+
+Although certain moderators were associated with differences in pooled prevalence, substantial residual heterogeneity remained. No single factor adequately accounted for the extreme variability observed across studies.
+
+\pagebreak
+
+# Appendix
+
+## Interpretation Notes
+
+- When funnel plot seemed asymmetrical, doi plot was preferred to avoid subjective selection.
+- Copas model selection was performed as a sensitivity analysis to detect and adjust for publication bias.
+- Further reading list:
+  - [Empirical evaluation suggests Copas selection model preferable to trim-and-fill method for selection bias in meta-analysis](https://www.sciencedirect.com/science/article/abs/pii/S0895435609002236)
+  - [Empirical evaluation showed that the Copas selection model provided a useful summary in 80% of meta-analyses](https://www.jclinepi.com/article/S0895-4356(08)00348-X/abstract)
+  - [Detecting small-study effects and funnel plot asymmetry in meta-analysis of survival data: A comparison of new and existing tests](https://onlinelibrary.wiley.com/doi/full/10.1002/jrsm.1266)
+  - [A sensitivity analysis for publication bias in systematic reviews](https://www.researchgate.net/profile/Jian-Shi-41/publication/11852731_A_sensitivity_analysis_for_publication_bias_in_systematic_reviews/links/00b7d53aa9d6b6ba26000000/A-sensitivity-analysis-for-publication-bias-in-systematic-reviews.pdf)
+  - [Examining and Interpreting Doi Plot Asymmetry in Meta‐Analyses of Randomized Controlled Trials](https://www.researchgate.net/publication/395029107_Examining_and_Interpreting_Doi_Plot_Asymmetry_in_Meta-Analyses_of_Randomized_Controlled_Trials)
+
+\pagebreak
+
+## Meta-analysis on the whole dataset
+
 ```{r meta-summary, results = "asis"}
-#| fig-height: 4
+##| fig-height: 4
 
 funnel_title <- "Publication bias and small-study effects for model: %s"
 
-tar_load(mod_prop)
 printSummary(mod_prop, detail = FALSE)
 
 meta::funnel(mod_prop, type = "contour")
@@ -114,14 +225,14 @@ title(sprintf(funnel_title, "mod_prop"))
 ```
 
 ```{r meta-summary-doi}
-#| fig-height: 4
+##| fig-height: 4
 
 metasens::doiplot(mod_prop) # Recommended over funnel plot (10.1111/jebm.70063)
 
 ```
 
 ```{r meta-summary-copas}
-#| fig-height: 8
+##| fig-height: 8
 
 tar_read(mod_copas_prop) %T>% plot() |> summary()
 
@@ -129,10 +240,7 @@ tar_read(mod_copas_prop) %T>% plot() |> summary()
 
 \pagebreak
 
-
-\pagebreak
-
-# Subgroup meta-analysis
+## Subgroup meta-analysis
 
 ```{r subgroup-summary, results = "asis"}
 
@@ -156,9 +264,9 @@ for (obj in obj_subgroups) {
 
 ```
 
-# Meta-regression
+## Meta-regression
 
-## Univariate models
+### Univariate models
 
 ```{r metareg-uni-summary, results = "asis"}
 
@@ -179,9 +287,9 @@ for (obj in obj_metareg_uni) {
 
 ```
 
-## Multivariate model
+### Multivariate model
 
-```{r metareg-mv-summary, echo = TRUE}
+```{r metareg-mv-summary, echo = FALSE}
 
 tar_load(mod_metareg_mv)
 summary(mod_metareg_mv)

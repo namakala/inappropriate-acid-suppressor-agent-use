@@ -21,13 +21,13 @@ clean <- function(tbl, ...) {
         grepl(x = Continent, "Europe") ~ "Europe",
         grepl(x = Continent, "North America") ~ "North America",
         .default =  "Other"
-      ) |> factor(levels = c("Asia", "Europe", "North America", "Other")),
+      ) |> factor(levels = c("North America", "Asia", "Europe", "Other")),
       "Setting" = dplyr::case_when(
         grepl(x = Setting, "Hospital") ~ "Hospital Setting",
         .default = "Other"
       ) |> factor(levels = c("Hospital Setting", "Other")),
       "use_guideline" = ifelse(
-        `Stated Guideline` == "Yes", "Followed Guideline(s)", "No Guideline"
+        `Guideline` == "Yes", "Followed Guideline(s)", "No Guideline"
       ),
       "logit_prevalence" = log(Prevalence / (1 - Prevalence)),
       "var_logit_prevalence" = 1 / (Sample_size * logit_prevalence)

@@ -16,8 +16,8 @@ fitMetaprop <- function(tbl, ...) {
     event            = Inappropriate_indication,
     n                = Sample_size,
     studlab          = Author,
-    sm               = "PLOGIT",
-    method.tau       = "ML",
+    sm               = "PFT",
+    method.tau       = "REML",
     method.random.ci = "HK",
     common           = FALSE,
     random           = TRUE,
@@ -63,7 +63,10 @@ fitMetareg <- function(tbl, varname, ...) {
   require("meta")
 
   sub_tbl <- tbl |>
-    subset(select = c("logit_prevalence", "var_logit_prevalence", varname)) |>
+    subset(
+      subset = var_logit_prevalence != Inf,
+      select = c("logit_prevalence", "var_logit_prevalence", varname)
+    ) |>
     na.omit()
 
   is_single <- length(varname) == 1
