@@ -1,0 +1,145 @@
+---
+title: "vizForest and vizFunnel: plot meta-analysis results"
+description: "Reference for visualize.R: vizForest saves PDF forest plots, vizFunnel makes contour-enhanced funnel plots for assessing publication bias in meta-analyses."
+---
+
+`visualize.R` provides two plotting functions for meta-analysis results. `vizForest()` produces a publication-ready forest plot with a custom column layout saved to PDF, and `vizFunnel()` produces a contour-enhanced funnel plot for assessing publication bias. Both wrap functions from the `meta` package and accept `...` for further customization.
+
+---
+
+## vizForest()
+
+```r
+vizForest <- function(mod, ...) {
+  #' Forest Plot
+  #'
+  #' Visualize meta-analysis model using forest plot
+  #'
+  #' @param mod Meta-analysis model from the `meta` package
+  require("meta")
+  pdf.options(encoding = "ISOLatin2.enc")
+
+  plt <- meta::forest(
+    mod,
+    leftcols = c(
+      "studlab", "Sample_size", "Inappropriate_indication", "w.random",
+      "effect", "ci"
+    ),
+    leftlabs = c(
+      "Study", "Sample Size", "Events", "Weight (%)", "Proportion", "95% CI"
+    ),
+    sortvar     = TE,
+    rightcols   = FALSE,
+    xlim        = c(0, 1),
+    digits      = 2,
+    width       = 9,
+    colgap.left = "0.15cm",
+    fontsize    = 10,
+    prediction  = TRUE,
+    backtransf  = TRUE,
+    ...
+  )
+
+  return(plt)
+}
+```
+
+### Parameters
+
+<ParamField path="mod" type="metaprop" required>
+  A `metaprop` object from `fitMetaprop()` or `fitSubMetaprop()`. The object must have been fitted with `prediction = TRUE` to show the prediction interval row.
+</ParamField>
+
+<ParamField path="..." type="any">
+  Additional arguments passed to `meta::forest()`. The most important is `file` for writing the plot to a PDF path. For subgroup forest plots, pass `print.subgroup.name = FALSE` to suppress the redundant subgroup header row.
+</ParamField>
+
+### Returns
+
+A forest plot object (returned invisibly). The primary output is the rendered PDF when `file` is specified via `...`.
+
+### Appearance and column layout
+
+| Column | Source slot | Label |
+|---|---|---|
+| Study | `studlab` | Study |
+| Sample size | `Sample_size` | Sample Size |
+| Events | `Inappropriate_indication` | Events |
+| Weight | `w.random` | Weight (%) |
+| Proportion | `effect` | Proportion |
+| Confidence interval | `ci` | 95% CI |
+
+Additional settings:
+- Studies are sorted in ascending order of effect size (`sortvar = TE`).
+- The x-axis runs from `0` to `1` (`xlim = c(0, 1)`).
+- `backtransf = TRUE` back-transforms Freeman-Tukey values so displayed proportions are on the natural scale.
+- The prediction interval is shown (`prediction = TRUE`).
+- Right-side columns are suppressed (`rightcols = FALSE`).
+- PDF encoding is set to `ISOLatin2` to support special characters in author names.
+
+### Usage
+
+```r
+targets::tar_load(mod_prop)
+vizForest(mod_prop, file = "docs/figures/meta-analysis-prevalence.pdf")
+```
+
+**In `_targets.R`:**
+
+```r
+tar_target(plt_forest_prop, vizForest(mod_prop, file = "docs/figures/meta-analysis-prevalence.pdf"))
+```
+
+---
+
+## vizFunnel()
+
+```r
+vizFunnel <- function(mod, ...) {
+  #' Funnel Plot
+  #'
+  #' Visualize meta-analysis model using funnel plot
+  #'
+  #' @param mod Meta-analysis model from the `meta` package
+  require("meta")
+
+  plt <- meta::funnel(
+    mod,
+    type = "contour",
+    common = TRUE,
+    random = TRUE
+  )
+
+  return(plt)
+}
+```
+
+### Parameters
+
+<ParamField path="mod" type="meta object" required>
+  A `meta` object (such as a `metaprop` from `fitMetaprop()`) or an `rma` object from `fitMetareg()`.
+</ParamField>
+
+<ParamField path="..." type="any">
+  Additional arguments passed to `meta::funnel()`. Use these to control significance contour levels, axis labels, or symbol appearance.
+</ParamField>
+
+### Returns
+
+A funnel plot object (returned invisibly). The plot is rendered to the active graphics device.
+
+### Plot type
+
+`vizFunnel()` produces a **contour-enhanced funnel plot** (`type = "contour"`). Contour regions shade the areas of statistical significance, helping to distinguish between publication bias and genuine heterogeneity. Both common-effect and random-effects reference lines are drawn (`common = TRUE`, `random = TRUE`).
+
+### Usage
+
+```r
+targets::tar_load(mod_prop)
+vizFunnel(mod_prop)
+title("Publication bias assessment: overall model")
+```
+
+<Tip>
+  For formal asymmetry assessment, this pipeline prefers Doi plots (`metasens::doiplot()`) over funnel plots. Doi plots are more robust when the number of studies is small and do not rely on assumptions about funnel symmetry.
+</Tip>

@@ -1,0 +1,95 @@
+---
+title: "Pooled prevalence estimation via random-effects model"
+description: "How the pipeline fits a random-effects meta-analysis of proportions using Freeman-Tukey transformation, REML estimation, and Hartung-Knapp CI adjustment."
+---
+
+The pipeline estimates a single pooled prevalence of inappropriate acid suppressor use by combining study-level proportions under a random-effects model. Because prevalence data violate the normality assumptions of standard models, the analysis applies a variance-stabilizing transformation before pooling and then back-transforms the result for reporting. The core function is `fitMetaprop()`, defined in `src/R/meta-analysis.R`, which wraps `meta::metaprop()` with a fixed set of options that enforce methodological consistency across all calls in the pipeline.
+
+## Model specification
+
+`fitMetaprop()` passes the cleaned data frame directly to `meta::metaprop()` and sets every modeling decision explicitly:
+
+```r
+fitMetaprop <- function(tbl, ...) {
+  require("meta")
+
+  mod <- meta::metaprop(
+    data             = tbl,
+    event            = Inappropriate_indication,
+    n                = Sample_size,
+    studlab          = Author,
+    sm               = "PFT",
+    method.tau       = "REML",
+    method.random.ci = "HK",
+    common           = FALSE,
+    random           = TRUE,
+    prediction       = TRUE,
+    ...
+  )
+
+  return(mod)
+}
+```
+
+| Argument | Value | Meaning |
+|---|---|---|
+| `sm` | `"PFT"` | Freeman-Tukey double arcsine transformation |
+| `method.tau` | `"REML"` | Restricted maximum likelihood for between-study variance |
+| `method.random.ci` | `"HK"` | Hartung-Knapp confidence interval adjustment |
+| `common` | `FALSE` | Suppress common-effect model output |
+| `random` | `TRUE` | Fit random-effects model |
+| `prediction` | `TRUE` | Compute 95% prediction interval |
+
+The pipeline runs this function as a `targets` target:
+
+```r
+tar_target(mod_prop, fitMetaprop(tbl_clean))
+```
+
+## Why Freeman-Tukey transformation
+
+Raw proportions near 0 or 1 produce asymmetric sampling distributions with variances that depend on the mean. The Freeman-Tukey double arcsine transformation (`sm = "PFT"`) stabilizes those variances and ensures that the confidence interval boundaries, after back-transformation, always remain within the valid [0, 1] range. Without this step, naively pooling logit- or untransformed proportions can yield intervals that fall outside [0, 1] when prevalence is extreme.
+
+## Hartung-Knapp adjustment
+
+The standard DerSimonian-Laird approach underestimates the uncertainty in the pooled estimate when the number of studies is small or heterogeneity is high, inflating Type I error. Setting `method.random.ci = "HK"` applies the Hartung-Knapp-Sidik-Jonkman correction, which uses a *t*-distribution rather than a normal approximation for the confidence interval. The result is a more conservative interval that better reflects the actual sampling variability of the between-study variance estimate.
+
+## Prediction interval
+
+Because `prediction = TRUE`, the fitted model also returns a 95% prediction interval alongside the confidence interval for the pooled estimate. Where the confidence interval describes uncertainty about the *mean* prevalence across the studies already observed, the prediction interval estimates the range you would expect to see in a *new, future* study drawn from the same population of studies. In the presence of high heterogeneity this interval is substantially wider than the confidence interval and is the more practically relevant quantity for clinical planning.
+
+## Accessing model output
+
+Load the fitted model from the `targets` store and inspect it with standard `meta` methods:
+
+```r
+targets::tar_load(mod_prop)
+summary(mod_prop)
+```
+
+Key fields on the returned object:
+
+| Field | Description |
+|---|---|
+| `mod_prop$TE.random` | Pooled effect (on the PFT scale) |
+| `mod_prop$lower.random` | Lower bound of the 95% CI (PFT scale) |
+| `mod_prop$upper.random` | Upper bound of the 95% CI (PFT scale) |
+| `mod_prop$I2` | *I*² heterogeneity statistic (proportion, not percentage) |
+| `mod_prop$tau2` | Between-study variance estimate |
+| `mod_prop$H` | *H* statistic |
+| `mod_prop$Q` | Wald's *Q* statistic |
+
+<Note>
+All effect estimates are stored on the Freeman-Tukey (PFT) scale. Use the `pft2p()` helper defined in `docs/report.qmd` to back-transform them to the original probability scale:
+
+```r
+pft2p <- function(x, n) {
+  harmonic_n <- {1 / mean(1 / n)}
+  p <- meta::backtransf(x, sm = "PFT", n = harmonic_n)
+  return(p)
+}
+
+# Example: back-transform the pooled estimate
+pft2p(mod_prop$TE.random, n = mod_prop$n)
+```
+</Note>

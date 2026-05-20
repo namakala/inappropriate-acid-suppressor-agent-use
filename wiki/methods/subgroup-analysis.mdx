@@ -1,0 +1,100 @@
+---
+title: "Subgroup meta-analysis by study-level characteristics"
+description: "How the pipeline fits separate random-effects models within five pre-specified study-level strata and iterates over them automatically with tar_map()."
+---
+
+Subgroup analysis lets you examine whether pooled prevalence differs across categories of study-level characteristics and whether heterogeneity is reduced within strata compared with the overall model. The pipeline fits a separate random-effects model for each level of five pre-specified variables, using the same `fitMetaprop()` configuration as the overall model. All subgroup targets are generated automatically using `tarchetypes::tar_map()`, so adding or removing a variable requires only a change to the `uni_vars` vector in `_targets.R`.
+
+## Subgroup variables
+
+The five variables used for subgroup analysis are defined in `_targets.R`:
+
+```r
+uni_vars <- c(
+  "Age", "Continent", "Setting", "JBI_Classification", "use_guideline"
+)
+```
+
+| Variable | Categories |
+|---|---|
+| `Age` | Patient age group (as reported by study) |
+| `Continent` | North America, Asia, Europe, Other |
+| `Setting` | Hospital Setting vs Other |
+| `JBI_Classification` | Methodological quality tier per JBI appraisal |
+| `use_guideline` | Followed Guideline(s) vs No Guideline |
+
+## How subgroup analysis works
+
+`fitSubMetaprop()` wraps `fitMetaprop()` to handle the subgroup-specific data filtering and passes the grouping column as the `subgroup` argument:
+
+```r
+fitSubMetaprop <- function(tbl, varname, ...) {
+  idx     <- !is.na(tbl[[rlang::as_name(varname)]])
+  sub_tbl <- tbl |> dplyr::filter(idx)
+
+  mod <- sub_tbl %>% fitMetaprop(
+    subgroup = dplyr::pull(., {{ varname }}), keepdata = TRUE
+  )
+
+  return(mod)
+}
+```
+
+The function:
+
+1. Removes rows where the grouping variable is `NA`, so studies that did not report that characteristic are excluded from the subgroup model (but remain in the overall model).
+2. Passes the non-missing subset to `fitMetaprop()`, forwarding the grouping column as `subgroup`.
+3. Sets `keepdata = TRUE` so that `meta` retains the raw study data alongside the fitted object — required for downstream Copas modeling.
+
+### Iterating over all subgroup variables with `tar_map()`
+
+Rather than writing one target per variable, `_targets.R` uses `tar_map()` to expand a single template across all entries in `uni_vars`:
+
+```r
+tar_map(
+  values = list("colname" = uni_vars),
+  unlist = FALSE,
+  tar_target(mod_subgroup, fitSubMetaprop(tbl_clean, varname = rlang::sym(colname))),
+  tar_target(mod_copas_subgroup, applyCopas(tbl_clean, varname = colname)),
+  tar_target(
+    plt_forest_subgroup,
+    vizForest(
+      mod_subgroup,
+      file = sprintf("docs/figures/subgroup-meta-analysis-%s.pdf", colname),
+      print.subgroup.name = FALSE
+    )
+  ),
+  tar_target(plt_funnel_subgroup, vizFunnel(mod_subgroup))
+)
+```
+
+This produces targets named `mod_subgroup_Age`, `mod_subgroup_Continent`, `mod_subgroup_Setting`, `mod_subgroup_JBI_Classification`, and `mod_subgroup_use_guideline`, along with paired Copas, forest-plot, and funnel-plot targets for each.
+
+## Accessing subgroup results
+
+Load any subgroup model by its generated target name:
+
+```r
+targets::tar_load(mod_subgroup_Continent)
+summary(mod_subgroup_Continent)
+```
+
+The returned object is a standard `meta` `metaprop` object with an additional `bylevs` slot listing the subgroup labels. You can inspect per-stratum estimates through `mod_subgroup_Continent$TE.random.w`, `mod_subgroup_Continent$lower.random.w`, and `mod_subgroup_Continent$upper.random.w`.
+
+## Interpreting heterogeneity within subgroups
+
+Each stratum in the subgroup model has its own set of heterogeneity statistics. You should examine:
+
+- **Within-subgroup *I*²** — the proportion of variability within a stratum attributable to true heterogeneity rather than sampling error.
+- **Within-subgroup τ²** — the between-study variance inside the stratum; a reduction relative to the overall τ² suggests the variable explains some heterogeneity.
+- **Within-subgroup *Q*** — the Wald statistic for the test of heterogeneity within that stratum.
+
+A variable is considered a meaningful moderator when the between-subgroup test is significant (reported as `Q_b` in the `summary()` output) *and* within-stratum heterogeneity is lower than the overall model.
+
+<Tip>
+Use `tar_objects()` with a `dplyr` selector to list every subgroup target at once without typing each name manually:
+
+```r
+targets::tar_objects(dplyr::contains("mod_subgroup"))
+```
+</Tip>

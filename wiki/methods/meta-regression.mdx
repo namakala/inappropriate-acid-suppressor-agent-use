@@ -1,0 +1,130 @@
+---
+title: "Meta-regression: exploring sources of heterogeneity"
+description: "How the pipeline fits univariable and multivariable meta-regression models with metafor::rma() to identify study-level predictors of heterogeneity."
+---
+
+Meta-regression extends the random-effects model by adding study-level covariates as predictors of the effect size, allowing you to quantify how much of the between-study heterogeneity each variable explains. The pipeline fits five univariable models (one per moderator) and a single multivariable model, all using `metafor::rma()` on the logit-transformed prevalence. Targets for the univariable models are generated automatically via `tar_map()`; the multivariable model is a single named target.
+
+## Univariable meta-regression
+
+`fitMetareg()` in `src/R/meta-analysis.R` handles both the univariable and multivariable cases through a single function:
+
+```r
+fitMetareg <- function(tbl, varname, ...) {
+  require("metafor")
+  require("meta")
+
+  sub_tbl <- tbl |>
+    subset(
+      subset = var_logit_prevalence != Inf,
+      select = c("logit_prevalence", "var_logit_prevalence", varname)
+    ) |>
+    na.omit()
+
+  is_single <- length(varname) == 1
+
+  if (is_single) {
+    form <- paste("~", varname)
+  } else {
+    form <- paste("~", paste(varname, collapse = " + "))
+  }
+
+  form %<>% as.formula()
+
+  mod <- metafor::rma(
+    yi     = logit_prevalence,
+    vi     = var_logit_prevalence,
+    mods   = form,
+    data   = sub_tbl,
+    method = "REML",
+    ...
+  )
+
+  return(mod)
+}
+```
+
+The function:
+
+1. Drops rows with infinite sampling variance (`var_logit_prevalence == Inf`) — these arise when a study reports a prevalence of exactly 0 or 1.
+2. Removes any remaining rows with `NA` in the outcome or the moderator columns via `na.omit()`.
+3. Builds a one-sided formula from `varname`; a single string produces `~ Age`, while a vector produces `~ Year + JBI_Classification + ...`.
+4. Passes logit prevalence as the outcome (`yi`) and its sampling variance (`vi`) to `metafor::rma()` with `method = "REML"`.
+
+The five univariable models correspond to the same `uni_vars` used for subgroup analysis:
+
+```r
+uni_vars <- c(
+  "Age", "Continent", "Setting", "JBI_Classification", "use_guideline"
+)
+```
+
+`_targets.R` expands these into individual targets with `tar_map()`:
+
+```r
+tar_map(
+  values = list("varname" = uni_vars),
+  unlist = FALSE,
+  tar_target(mod_metareg, fitMetareg(tbl_clean, varname))
+)
+```
+
+This creates `mod_metareg_Age`, `mod_metareg_Continent`, `mod_metareg_Setting`, `mod_metareg_JBI_Classification`, and `mod_metareg_use_guideline`.
+
+## Multivariable meta-regression
+
+The multivariable model includes all predictors believed to drive heterogeneity, specified in `mv_vars`:
+
+```r
+mv_vars <- c(
+  "Year", "JBI_Classification", "use_guideline", "Setting", "Continent",
+  "Sample_size"
+)
+```
+
+A single target fits this model:
+
+```r
+tar_target(mod_metareg_mv, fitMetareg(tbl_clean, mv_vars))
+```
+
+Because `fitMetareg()` detects `length(varname) > 1`, it builds the formula `~ Year + JBI_Classification + use_guideline + Setting + Continent + Sample_size` automatically — no separate function is needed. The multivariable model jointly estimates the contribution of each predictor while adjusting for the others, and the residual *I*² indicates how much heterogeneity remains unexplained.
+
+### Accessing results
+
+```r
+targets::tar_load(mod_metareg_mv)
+summary(mod_metareg_mv)
+```
+
+For a univariable model:
+
+```r
+targets::tar_load(mod_metareg_Age)
+summary(mod_metareg_Age)
+```
+
+## Interpreting meta-regression output
+
+`metafor::rma()` returns a `rma` object. The `summary()` output reports:
+
+| Field | Interpretation |
+|---|---|
+| `b` (intercept) | Expected logit prevalence when all moderators are 0 / reference level |
+| `b` (slope) | Change in logit prevalence per unit increase in the moderator |
+| `se`, `zval`, `pval` | Standard error, *z*-statistic, and two-sided *p*-value for each coefficient |
+| `R2` | Proportion of τ² explained by the moderator(s) |
+| `I2` | Residual heterogeneity after accounting for moderators |
+| `tau2` | Residual between-study variance |
+
+<Note>
+The outcome variable is logit-transformed prevalence. Regression coefficients are therefore on the logit scale. To convert a predicted value back to a probability, apply `plogis()`:
+
+```r
+# Predicted logit for a reference-category study
+predicted_logit <- coef(mod_metareg_mv)[["intrcpt"]]
+plogis(predicted_logit)  # back-transforms to [0, 1]
+```
+
+Slopes represent additive shifts on the logit scale; for small effects you can approximate the change in probability, but for large coefficients use `plogis()` evaluated at specific covariate values.
+</Note>

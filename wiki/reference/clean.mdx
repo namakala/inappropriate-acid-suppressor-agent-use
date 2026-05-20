@@ -1,0 +1,94 @@
+---
+title: "clean(): standardize study data for meta-analysis"
+description: "Reference for clean.R, which standardizes raw study-level column names and types, derives logit-prevalence variables, and prepares data for meta-analysis."
+---
+
+`clean.R` contains a single function that takes the raw tibble from `readData()` and produces a standardized data frame ready for `fitMetaprop()`, `fitSubMetaprop()`, `fitMetareg()`, and `applyCopas()`. It renames columns, coerces types, classifies categorical variables, and computes the logit-prevalence outcome and its variance.
+
+## clean()
+
+```r
+clean <- function(tbl, ...) {
+  #' Clean the Data Frame
+  #'
+  #' Clean the data frame by standardizing the variables.
+  #'
+  #' @param tbl A data frame object
+  #'
+  #' @return A data frame object
+
+  res <- tbl |>
+    dplyr::mutate(
+      "Age" = `Patient's age`,
+      "Year" = as.integer(`Year of Publication`),
+      "Prevalence" = gsub(x = Prevalence, ",", ".") |> as.numeric(),
+      "Sample_size" = as.integer(`Sample size`),
+      "Inappropriate_indication" = as.integer(`Inappropriate indication`),
+      "Continent" = dplyr::case_when(
+        grepl(x = Continent, "Asia") ~ "Asia",
+        grepl(x = Continent, "Europe") ~ "Europe",
+        grepl(x = Continent, "North America") ~ "North America",
+        .default =  "Other"
+      ) |> factor(levels = c("North America", "Asia", "Europe", "Other")),
+      "Setting" = dplyr::case_when(
+        grepl(x = Setting, "Hospital") ~ "Hospital Setting",
+        .default = "Other"
+      ) |> factor(levels = c("Hospital Setting", "Other")),
+      "use_guideline" = ifelse(
+        `Guideline` == "Yes", "Followed Guideline(s)", "No Guideline"
+      ),
+      "logit_prevalence" = log(Prevalence / (1 - Prevalence)),
+      "var_logit_prevalence" = 1 / (Sample_size * logit_prevalence)
+    ) %>%
+    set_names(names(.) |> make.names())
+
+  return(res)
+}
+```
+
+### Parameters
+
+<ParamField path="tbl" type="data.frame" required>
+  Raw study-level data frame as returned by `readData()`. Must contain the original column names from the CSV: `Patient's age`, `Year of Publication`, `Prevalence`, `Sample size`, `Inappropriate indication`, `Continent`, `Setting`, and `Guideline`.
+</ParamField>
+
+<ParamField path="..." type="any">
+  Additional arguments. Currently unused; reserved for future extensibility.
+</ParamField>
+
+### Returns
+
+A data frame with standardized, R-compatible column names. All column names are passed through `make.names()` as a final step, replacing spaces and special characters with dots.
+
+### Transformations
+
+| Output column | Source column | Operation |
+|---|---|---|
+| `Age` | `Patient's age` | Renamed; type unchanged |
+| `Year` | `Year of Publication` | Coerced to `integer` |
+| `Prevalence` | `Prevalence` | Comma replaced with dot, coerced to `numeric` |
+| `Sample_size` | `Sample size` | Coerced to `integer` |
+| `Inappropriate_indication` | `Inappropriate indication` | Coerced to `integer` |
+| `Continent` | `Continent` | Fuzzy-matched with `grepl` into four levels: `"North America"`, `"Asia"`, `"Europe"`, `"Other"`; stored as ordered `factor` |
+| `Setting` | `Setting` | Dichotomized: rows matching `"Hospital"` → `"Hospital Setting"`, all others → `"Other"`; stored as `factor` |
+| `use_guideline` | `Guideline` | `"Yes"` → `"Followed Guideline(s)"`, all others → `"No Guideline"` |
+| `logit_prevalence` | `Prevalence` | Computed as `log(Prevalence / (1 - Prevalence))` |
+| `var_logit_prevalence` | `Sample_size`, `logit_prevalence` | Computed as `1 / (Sample_size * logit_prevalence)` |
+
+### Usage
+
+```r
+targets::tar_load(tbl)
+tbl_clean <- clean(tbl)
+str(tbl_clean)
+```
+
+**In `_targets.R`:**
+
+```r
+tar_target(tbl_clean, clean(tbl))
+```
+
+<Warning>
+  `var_logit_prevalence` will be `Inf` when `logit_prevalence` equals `0` (i.e., when `Prevalence` is exactly `0.5`). Rows with infinite variance must be excluded from meta-regression. `fitMetareg()` handles this automatically by subsetting with `var_logit_prevalence != Inf` before fitting the model.
+</Warning>

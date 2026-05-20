@@ -1,0 +1,146 @@
+---
+title: "Running and managing the targets pipeline workflow"
+description: "Commands for executing, inspecting, loading results from, and troubleshooting the targets-based meta-analysis pipeline on your local machine."
+---
+
+Once your environment is set up and `data/raw/data.csv` is in place, you interact with the pipeline entirely through the `targets` package. `targets` tracks every input, function, and output as a node in a dependency graph, so you can run the full analysis, check what is out of date, load individual results, and debug failures — all without manually tracking which scripts to re-run.
+
+## Running the pipeline
+
+Call `tar_make()` from your R console (or in an RStudio terminal) to execute the full pipeline:
+
+```r
+targets::tar_make()
+```
+
+`targets` reads `_targets.R`, resolves the dependency graph, and dispatches targets to up to four parallel workers via `crew`. Targets whose inputs have not changed since the last run are skipped automatically. A green checkmark next to a target name means it was skipped as up to date; an orange label means it was dispatched and executed.
+
+<Note>
+Run `targets::tar_make()` from the project root directory, where `_targets.R` is located. If you are in a subdirectory, targets will not find the pipeline definition.
+</Note>
+
+## Checking pipeline status
+
+Use these commands to inspect the state of the pipeline before or after a run.
+
+### Visual dependency graph
+
+```r
+targets::tar_visnetwork()
+```
+
+Opens an interactive network diagram in your browser showing every target, its status (up to date, outdated, errored), and the edges between them. Use this to understand what will run before committing to a full `tar_make()`.
+
+### List all targets
+
+```r
+targets::tar_manifest()
+```
+
+Returns a data frame listing every target name, the command used to build it, and its configured options. Useful for auditing the pipeline definition programmatically.
+
+### See which targets need to run
+
+```r
+targets::tar_outdated()
+```
+
+Prints the names of all targets that are outdated relative to their current dependencies. A target is outdated if its command, any of its upstream targets, or any of its tracked files have changed since it last ran.
+
+### Check run progress
+
+```r
+targets::tar_progress()
+```
+
+Returns a data frame with the status of every target from the most recent `tar_make()` call. Status values include `"built"`, `"skipped"`, `"errored"`, `"cancelled"`, and `"dispatched"`.
+
+## Accessing results
+
+After a successful run, results are stored in `_targets/objects/`. You can retrieve them without re-running any targets.
+
+### Load a target into your environment
+
+```r
+targets::tar_load(mod_prop)
+```
+
+Loads the named target directly into your global environment. You can then inspect `mod_prop` like any other R object.
+
+### Read a target without loading
+
+```r
+targets::tar_read(mod_prop)
+```
+
+Returns the target value without assigning it to the global environment. Useful in scripts or R Markdown/Quarto documents where you want to avoid side effects.
+
+### List all computed targets
+
+```r
+targets::tar_objects()
+```
+
+Returns a character vector of all target names that have been built and stored in `_targets/objects/`. Combine with `tar_load_everything()` to load all results at once.
+
+## Key pipeline targets and what they produce
+
+| Target | What it produces |
+|---|---|
+| `tbl` | Raw data frame read from `data/raw/data.csv` |
+| `tbl_clean` | Cleaned and standardized data frame, ready for modeling |
+| `mod_prop` | Overall random-effects meta-analysis model (proportion data) |
+| `mod_copas_prop` | Copas selection model fit to `mod_prop`, adjusting for publication bias |
+| `plt_forest_prop` | Forest plot PDF saved to `docs/figures/meta-analysis-prevalence.pdf` |
+| `mod_subgroup_Age` | Subgroup meta-analysis stratified by patient age |
+| `mod_subgroup_Continent` | Subgroup meta-analysis stratified by continent |
+| `mod_subgroup_Setting` | Subgroup meta-analysis stratified by clinical setting |
+| `mod_subgroup_JBI_Classification` | Subgroup meta-analysis stratified by JBI quality score |
+| `mod_subgroup_use_guideline` | Subgroup meta-analysis stratified by guideline adherence |
+| `mod_metareg_Age` | Univariable meta-regression with age as predictor |
+| `mod_metareg_Continent` | Univariable meta-regression with continent as predictor |
+| `mod_metareg_Setting` | Univariable meta-regression with setting as predictor |
+| `mod_metareg_JBI_Classification` | Univariable meta-regression with JBI score as predictor |
+| `mod_metareg_use_guideline` | Univariable meta-regression with guideline use as predictor |
+| `mod_metareg_mv` | Multivariable meta-regression with year, JBI score, guideline use, setting, continent, and sample size |
+| `report` | Compiled Quarto PDF report from `docs/report.qmd` |
+| `readme` | Rendered `README.qmd`, built last (`priority = 0`) |
+
+## Troubleshooting
+
+### A target fails but the pipeline keeps running
+
+The pipeline is configured with `error = "continue"`:
+
+```r
+tar_option_set(
+  error = "continue",
+  ...
+)
+```
+
+This means that if one target errors, `targets` marks it as failed and continues building any downstream targets that do not depend on it. After the run, call `tar_progress()` to identify which targets errored, then inspect those targets individually.
+
+### Interactive debugging
+
+By default, `tar_make()` runs each target in a separate `callr` subprocess, which makes debugging difficult because you cannot drop into a browser or inspect objects interactively. To disable subprocess isolation:
+
+```r
+targets::tar_make(callr_function = NULL)
+```
+
+With `callr_function = NULL`, targets run in your current R session. You can set breakpoints, use `browser()`, or inspect intermediate values directly.
+
+### Packages seem out of sync
+
+The project uses `renv` to lock package versions. If you install or update packages and targets behave unexpectedly, check whether your library matches the lockfile:
+
+```r
+renv::status()
+```
+
+If `renv::status()` reports discrepancies, run `renv::restore()` to reinstall the locked versions, then restart your R session before calling `tar_make()` again.
+
+<Tip>
+For distributed computing across multiple machines or a high-performance cluster, replace `crew_controller_local(worker = 4)` in `_targets.R` with an appropriate `crew` controller (for example, `crew.cluster` for SLURM). The same `targets::tar_make()` call is used regardless of which controller is configured.
+</Tip>

@@ -1,0 +1,307 @@
+---
+title: "Meta-analysis functions: fitMetaprop, fitMetareg, applyCopas"
+description: "Reference for meta-analysis.R: fitMetaprop, fitSubMetaprop, fitMetareg, and applyCopas for pooled prevalence, subgroup, regression, and bias adjustment."
+---
+
+`meta-analysis.R` provides four functions that implement the full statistical modeling pipeline. `fitMetaprop()` fits an overall proportion meta-analysis, `fitSubMetaprop()` extends it to subgroup analyses, `fitMetareg()` fits univariable or multivariable meta-regression, and `applyCopas()` applies the Copas selection model to adjust for publication bias.
+
+---
+
+## fitMetaprop()
+
+```r
+fitMetaprop <- function(tbl, ...) {
+  #' Meta-Analysis for Proportion
+  #'
+  #' Fit meta-analyis model for proportion data with REML estimator,
+  #' Freeman-Tukey summary measure, and Hartung-Knapp CI calculation.
+  #'
+  #' @param tbl A data frame object containing extracted information from the
+  #' selected articles
+  #' @return Metaprop object
+  require("meta")
+
+  mod <- meta::metaprop(
+    data             = tbl,
+    event            = Inappropriate_indication,
+    n                = Sample_size,
+    studlab          = Author,
+    sm               = "PFT",
+    method.tau       = "REML",
+    method.random.ci = "HK",
+    common           = FALSE,
+    random           = TRUE,
+    prediction       = TRUE,
+    ...
+  )
+
+  return(mod)
+}
+```
+
+### Parameters
+
+<ParamField path="tbl" type="data.frame" required>
+  Cleaned data frame from `clean()`. Must contain `Inappropriate_indication` (event count), `Sample_size` (total n), and `Author` (study label).
+</ParamField>
+
+<ParamField path="..." type="any">
+  Additional arguments passed to `meta::metaprop()`. Use these to override model settings such as `subgroup` or `keepdata`.
+</ParamField>
+
+### Returns
+
+A `metaprop` object from the `meta` package. Key slots include `TE.random`, `lower.random`, `upper.random`, `I2`, `tau2`, `H`, `Q`, `k`, `n`, and `event`.
+
+### Model settings
+
+| Setting | Value | Description |
+|---|---|---|
+| `sm` | `"PFT"` | Freeman-Tukey double arcsine transformation |
+| `method.tau` | `"REML"` | Restricted maximum likelihood for heterogeneity |
+| `method.random.ci` | `"HK"` | Hartung-Knapp confidence intervals |
+| `common` | `FALSE` | Common-effect model not fitted |
+| `random` | `TRUE` | Random-effects model fitted |
+| `prediction` | `TRUE` | Prediction interval included |
+
+### Usage
+
+```r
+targets::tar_load(tbl_clean)
+mod <- fitMetaprop(tbl_clean)
+summary(mod)
+```
+
+---
+
+## fitSubMetaprop()
+
+```r
+fitSubMetaprop <- function(tbl, varname, ...) {
+  #' Subgroup Meta-Analysis
+  #'
+  #' Perform a subgroup meta-analysis grouped by the given `varname`.
+  #'
+  #' @param tbl A data frame object
+  #' @param varname Variable name to group the analysis
+  #'
+  #' @return Metaprop object
+
+  idx     <- !is.na(tbl[[rlang::as_name(varname)]])
+  sub_tbl <- tbl |> dplyr::filter(idx)
+
+  mod <- sub_tbl %>% fitMetaprop(
+    subgroup = dplyr::pull(., {{ varname }}), keepdata = TRUE
+  )
+
+  return(mod)
+}
+```
+
+### Parameters
+
+<ParamField path="tbl" type="data.frame" required>
+  Cleaned data frame from `clean()`.
+</ParamField>
+
+<ParamField path="varname" type="symbol" required>
+  A `rlang` symbol identifying the grouping variable. Valid columns in the pipeline are `Age`, `Continent`, `Setting`, `JBI_Classification`, and `use_guideline`. Pass as `rlang::sym("Continent")`.
+</ParamField>
+
+<ParamField path="..." type="any">
+  Additional arguments passed to `fitMetaprop()`.
+</ParamField>
+
+### Returns
+
+A `metaprop` object with subgroup structure. The `subgroup` slot contains the grouping variable values; `TE.random.w`, `lower.random.w`, and `upper.random.w` hold the per-subgroup estimates.
+
+### How it works
+
+The function first drops rows where `varname` is `NA` using `rlang::as_name()` to convert the symbol to a string for subsetting. It then calls `fitMetaprop()` with the `subgroup` argument set to the pulled column and `keepdata = TRUE` so the original data is retained in the model object.
+
+### Usage
+
+```r
+targets::tar_load(tbl_clean)
+mod_sub <- fitSubMetaprop(tbl_clean, varname = rlang::sym("Continent"))
+```
+
+**In `_targets.R`:**
+
+```r
+tar_target(mod_subgroup, fitSubMetaprop(tbl_clean, varname = rlang::sym(colname)))
+```
+
+---
+
+## fitMetareg()
+
+```r
+fitMetareg <- function(tbl, varname, ...) {
+  #' Meta-Regression
+  #'
+  #' Fit a meta-regression model to a given data frame and set of variable
+  #' names. Variable names could be singular, which then will be fitted as a
+  #' univariate meta-regression model.
+  #'
+  #' @param tbl A data frame object
+  #' @param varname One or multiple column names
+  #' 
+  #' @return A `rma` object
+  require("metafor")
+  require("meta")
+
+  sub_tbl <- tbl |>
+    subset(
+      subset = var_logit_prevalence != Inf,
+      select = c("logit_prevalence", "var_logit_prevalence", varname)
+    ) |>
+    na.omit()
+
+  is_single <- length(varname) == 1
+
+  if (is_single) {
+    form <- paste("~", varname)
+  } else {
+    form <- paste("~", paste(varname, collapse = " + "))
+  }
+
+  form %<>% as.formula()
+
+  mod <- metafor::rma(
+    yi     = logit_prevalence,
+    vi     = var_logit_prevalence,
+    mods   = form,
+    data   = sub_tbl,
+    method = "REML",
+    ...
+  )
+
+  return(mod)
+}
+```
+
+### Parameters
+
+<ParamField path="tbl" type="data.frame" required>
+  Cleaned data frame from `clean()`.
+</ParamField>
+
+<ParamField path="varname" type="character" required>
+  A character vector of column names to use as moderators. A single element fits a univariable model; two or more elements fit a multivariable model with all terms joined by `+`.
+</ParamField>
+
+<ParamField path="..." type="any">
+  Additional arguments passed to `metafor::rma()`.
+</ParamField>
+
+### Returns
+
+An `rma` object from the `metafor` package. Key slots include `b` (coefficients), `ci.lb`, `ci.ub`, `pval`, `I2`, `tau2`, `QE`, and `QEp`.
+
+### How it works
+
+Before fitting, the function removes rows where `var_logit_prevalence` is `Inf` and drops any remaining `NA` rows via `na.omit()`. The formula is constructed dynamically: a single `varname` produces `~ varname`; multiple names produce `~ var1 + var2 + ...`. The outcome is `logit_prevalence` and the weights are `var_logit_prevalence`, both fitted with REML.
+
+### Usage
+
+<CodeGroup>
+
+```r Univariable
+targets::tar_load(tbl_clean)
+mod_uni <- fitMetareg(tbl_clean, "Continent")
+```
+
+```r Multivariable
+mv_vars <- c("Year", "JBI_Classification", "use_guideline", "Setting", "Continent", "Sample_size")
+mod_mv <- fitMetareg(tbl_clean, mv_vars)
+summary(mod_mv)
+```
+
+</CodeGroup>
+
+---
+
+## applyCopas()
+
+```r
+applyCopas <- function(obj, varname = NULL, ...) {
+  #' Copas Selection objel
+  #'
+  #' Perform a Copas selection objel analysis on a given meta-analysis objel.
+  #' This analysis will adjust for the probability of publication bias.
+  #'
+  #' @param obj A meta-analysis model from the `meta` package, otherwise a data
+  #' frame object.
+  #' @param varname Variable name indicating which variable is used to subste
+  #' the dataset.
+  #'
+  #' @return A Copas analysis object
+  require("metasens")
+  require("meta")
+
+  tbl <- obj
+
+  if (grepl(x = obj, "meta") |> any()) {
+    mod_copas <- metasens::copas(obj, backtransf = TRUE, ...)
+    return(mod_copas)
+  } else if (is.null(varname)) {
+    mod <- fitMetaprop(obj)
+    mod_copas <- applyCopas(mod)
+    return(mod_copas)
+  }
+
+  groups <- tbl[[varname]] |> unique() |> na.omit()
+  sub_tbls <- lapply(groups, \(group) tbl %>% subset(.[[varname]] == group))
+  sub_metas <- lapply(sub_tbls, \(sub_tbl) fitMetaprop(sub_tbl))
+  mod_copas <- lapply(sub_metas, applyCopas)
+
+  return(mod_copas)
+}
+```
+
+### Parameters
+
+<ParamField path="obj" type="meta object or data.frame" required>
+  Either a fitted `meta` object (e.g., from `fitMetaprop()`) for direct Copas analysis, or a raw data frame when you want `applyCopas()` to handle fitting internally.
+</ParamField>
+
+<ParamField path="varname" type="character" default="NULL">
+  Column name to use for subgroup iteration. When `NULL`, Copas analysis is applied to the overall model. When provided along with a data frame `obj`, the function splits the data by unique levels of `varname` and returns one Copas object per subgroup.
+</ParamField>
+
+<ParamField path="..." type="any">
+  Additional arguments passed to `metasens::copas()`.
+</ParamField>
+
+### Returns
+
+A `copas` object when applied to a single model, or a list of `copas` objects (one per subgroup level) when `varname` is provided with a data frame.
+
+### How it dispatches
+
+The function checks `class(obj)` for the string `"meta"` using `grepl()`:
+
+1. **`obj` is a `meta` object** — calls `metasens::copas(obj, backtransf = TRUE, ...)` directly and returns the result.
+2. **`obj` is a data frame and `varname` is `NULL`** — calls `fitMetaprop(obj)` first, then recurses with the resulting model.
+3. **`obj` is a data frame and `varname` is given** — splits the data into per-group subsets, fits `fitMetaprop()` on each, and applies `applyCopas()` recursively to produce a list.
+
+### Usage
+
+```r
+targets::tar_load(mod_prop)
+mod_copas <- applyCopas(mod_prop)
+summary(mod_copas)
+plot(mod_copas)
+```
+
+**In `_targets.R`:**
+
+```r
+# Overall
+tar_target(mod_copas_prop, applyCopas(mod_prop))
+
+# Subgroup
+tar_target(mod_copas_subgroup, applyCopas(tbl_clean, varname = colname))
+```

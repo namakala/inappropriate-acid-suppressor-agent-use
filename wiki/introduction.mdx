@@ -1,0 +1,65 @@
+---
+title: "Inappropriate Acid Suppressor Agent Use — Overview"
+description: "A reproducible R pipeline for meta-analyzing global prevalence of inappropriate PPI and H2-blocker prescribing across settings and geographies."
+---
+
+This documentation covers a fully reproducible statistical analysis pipeline for investigating the global prevalence of inappropriate acid suppressing agent (ASA) use — including proton pump inhibitors (PPIs) and H2-receptor antagonists (H2 blockers). Built with the `targets` framework in R, the pipeline takes a curated study-level dataset and produces pooled prevalence estimates, subgroup analyses, meta-regression models, and publication bias assessments, all rendered into an automated Quarto report.
+
+## Research background
+
+Inappropriate prescribing of acid suppressing agents is a recognized global clinical problem. PPIs and H2 blockers are among the most widely dispensed drug classes worldwide, yet a substantial proportion of prescriptions lack a valid clinical indication. Overuse is associated with avoidable adverse effects, unnecessary healthcare costs, and antimicrobial resistance through gut microbiome disruption.
+
+This pipeline systematically quantifies the prevalence of inappropriate ASA use by pooling evidence from primary studies through random-effects meta-analysis. It applies the Freeman-Tukey double arcsine transformation to stabilize the variance of proportion data, and uses the Copas selection model to assess sensitivity to publication bias.
+
+## Research questions
+
+The pipeline is designed to answer the following questions:
+
+- What is the pooled global prevalence of inappropriate ASA prescribing?
+- Does prevalence differ by **geographic region** (continent)?
+- Does prevalence differ by **clinical setting** (inpatient, outpatient, ICU)?
+- How does the use of explicit **prescribing guidelines** affect reported prevalence?
+- What study-level characteristics (year, sample size, quality) explain between-study heterogeneity?
+
+## Key variables
+
+Each included study contributes the following variables to the analysis dataset:
+
+| Variable | Description |
+|---|---|
+| `Author` | Study author(s) |
+| `Sample_size` | Number of patients or prescriptions assessed |
+| `Inappropriate_indication` | Count of inappropriate prescriptions identified |
+| `Prevalence` | Proportion of prescriptions deemed inappropriate |
+| `Year` | Publication year |
+| `Continent` | Geographic region of the study |
+| `Setting` | Clinical setting (e.g., inpatient, outpatient) |
+| `JBI_Classification` | Study quality rating per JBI critical appraisal |
+| `use_guideline` | Whether the study applied a named prescribing guideline |
+
+## Explore the pipeline
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Clone the repository, restore the R environment, and run the full pipeline in a few commands.
+  </Card>
+  <Card title="Pipeline overview" icon="diagram-project" href="/pipeline/overview">
+    Understand how `targets` orchestrates every step from raw data ingestion to the final report.
+  </Card>
+  <Card title="Analysis methods" icon="flask" href="/methods/pooled-prevalence">
+    Learn the statistical methods: random-effects models, subgroup analyses, and meta-regression.
+  </Card>
+  <Card title="Results summary" icon="chart-bar" href="/results/summary">
+    Review the pooled prevalence estimates and key findings from the completed analysis.
+  </Card>
+</CardGroup>
+
+## Data availability
+
+<Note>
+  Raw data are not included in this repository. You must export the study-level dataset as `data.csv` and place it at `data/raw/data.csv` before running the pipeline. See the [Quickstart](/quickstart) for the required directory structure.
+</Note>
+
+## License
+
+This project is released under the [Creative Commons Attribution 4.0 International (CC-BY-4.0)](https://creativecommons.org/licenses/by/4.0/) license. You are free to share and adapt the material for any purpose, provided you give appropriate credit to the original authors.
