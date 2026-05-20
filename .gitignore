@@ -18,3 +18,7 @@
 !*bib
 !*yml
 !*.tex
+!*.toml
+
+# Pixi
+!.pixi/
