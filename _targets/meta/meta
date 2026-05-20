@@ -1,33 +1,37 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-readme|stem|b8819c02d2180e91|8b3a75d81f94f744|2c530c1562a7fbd1|980901812|README.md*README.qmd|t20467.0209451954s|s5725b|5725|file|local|vector|||6.615||
-fpath|stem|87e01b866aac3714|809f45dcd5ede807|88785947d3fd21e6|-530540549|data/raw/data.csv|t20500.9576998094s|s31164b|31164|file|local|vector|||0.073||
-tbl|stem|cc56b750069af49c|7cecc88e5b740def|7437154fd9e13e4c|1753415084||t20500.9591319409s|s10183b|10183|rds|local|vector|||0.289||
-tbl_clean|stem|e1e3e48cbd7589af|9d46ba4b0e257f0e|f5b02953977cd790|1943731114||t20500.9749125395s|s13961b|13961|rds|local|vector|||0.019||
-mod_metareg_mv|stem|70d67060eda1bc80|01596653f7d310f5|35c59263701f0127|666694482||t20500.9749319534s|s34943b|34943|rds|local|vector|||1.539|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
-mod_copas_subgroup_Age|stem|91a2a815486e150c|d0ce00d4ce664447|af6b0dbc4dda2f06|-671745572||t20500.9749525265s|s24385b|24385|rds|local|vector|||1.565|NaNs produced. NaNs produced. NaNs produced|
-mod_subgroup_use_guideline|stem|3565c1afdf76c5b5|cdaf7139afa33922|2a574dd1ae3a9c2c|1574898530||t20500.9749625907s|s25639b|25639|rds|local|vector|||0.527||
-mod_subgroup_JBI_Classification|stem|760a29cd53845d27|6e1653d5df197d13|2a574dd1ae3a9c2c|-983823152||t20500.9749707138s|s25625b|25625|rds|local|vector|||2.286||
-mod_metareg_Age|stem|dbe5241969d72609|985d1acaa2db4176|8015c51b7aa91464|418752239||t20500.9749747329s|s23412b|23412|rds|local|vector|||2.04|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
-plt_funnel_subgroup_JBI_Classification|stem|693913f14f23dc1b|58c688da969728bd|ed4182dcfb7d30df|-547233941||t20500.9749770728s|s2469b|2469|rds|local|vector|||0.142||
-mod_subgroup_Setting|stem|bfe98e29ee32b88e|b0bd74cccccf37bd|2a574dd1ae3a9c2c|-1148150178||t20500.9749851812s|s25504b|25504|rds|local|vector|||0.293||
-mod_prop|stem|9b5170c002354c4f|fd9868083d055a55|b8199596c115cd45|794110157||t20500.9749870367s|s24161b|24161|rds|local|vector|||2.355||
-plt_funnel_subgroup_Setting|stem|693913f14f23dc1b|8fb1e9003fd24cad|6324745d43b6cd24|-679070467||t20500.9749898707s|s2469b|2469|rds|local|vector|||0.021||
-plt_funnel_prop|stem|693913f14f23dc1b|0511880fa7f0fa9f|0e0ea914dfdfb2cd|-319197324||t20500.9749928749s|s2469b|2469|rds|local|vector|||0.137||
-mod_subgroup_Age|stem|f8c273a1f425cd58|1de057f49b5dac23|2a574dd1ae3a9c2c|1044776827||t20500.9749952921s|s14243b|14243|rds|local|vector|||0.16||
-mod_metareg_Setting|stem|2f00e059954557b1|e97ce0860aea2010|8015c51b7aa91464|-56748310||t20500.9750007812s|s29085b|29085|rds|local|vector|||0.278|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
-mod_metareg_Continent|stem|277a3874089ea603|9c5af9e61733e2ec|8015c51b7aa91464|82995815||t20500.9750070029s|s29906b|29906|rds|local|vector|||0.04|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
-mod_copas_subgroup_Setting|stem|cd58b8ec6e1fc849|81ec9869dc8ef29c|af6b0dbc4dda2f06|59135725||t20500.9750070556s|s34897b|34897|rds|local|vector|||2.437||
-mod_copas_subgroup_JBI_Classification|stem|68c14c1da615e0d3|cc59beebb501c10d|af6b0dbc4dda2f06|63113237||t20500.9750257011s|s35917b|35917|rds|local|vector|||3.4|NaNs produced. NaNs produced. NaNs produced|
-mod_metareg_use_guideline|stem|f8fe690965cc5b70|1a183b80696aa0ab|8015c51b7aa91464|-1342049052||t20500.9750257253s|s29071b|29071|rds|local|vector|||0.061|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
-mod_subgroup_Continent|stem|2fc6c0781ba8e8a1|4e49baa75c3e95ad|2a574dd1ae3a9c2c|1325324372||t20500.9750277676s|s26055b|26055|rds|local|vector|||0.916||
-mod_metareg_JBI_Classification|stem|4c0b6754baf5884a|f91f92a806c04601|8015c51b7aa91464|-644420020||t20500.9750354618s|s29231b|29231|rds|local|vector|||0.037|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
-plt_funnel_subgroup_Continent|stem|693913f14f23dc1b|25235da2537ef14b|a38bca6b2ad14c2c|-1833395975||t20500.9750354866s|s2469b|2469|rds|local|vector|||0.039||
-plt_funnel_subgroup_use_guideline|stem|693913f14f23dc1b|16125b5b9e819123|9e663c6dd19a0f5a|406077047||t20500.9750508207s|s2469b|2469|rds|local|vector|||0.265||
-mod_copas_subgroup_use_guideline|stem|91aa4897f96fee5e|972220e085c79e69|af6b0dbc4dda2f06|1729832472||t20500.9750585242s|s35918b|35918|rds|local|vector|||3.849|NaNs produced|
-plt_funnel_subgroup_Age|stem|f0b4c31259b335a6|2e09ad86794b4326|c26038fe7d502e7e|1410815420||t20500.9750808655s|s1452b|1452|rds|local|vector|||0.034||
-mod_copas_prop|stem|29bd589d3074f767|b40ab7d30627e459|1c612f2da5926aaa|314813646||t20500.9750869831s|s29744b|29744|rds|local|vector|||2.149||
-mod_copas_subgroup_Continent|stem|917ac094666b4a26|8025b43241ae89b9|af6b0dbc4dda2f06|1707500982||t20500.9750994573s|s49408b|49408|rds|local|vector|||5.35|NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced|
-report|stem|8df48d345f86802c|80dae3d22c8f8ade|0fda8a2098f34c19|787668912|docs/report.pdf*docs/report.qmd|t20501.4573278096s|s369940b|369940|file|local|vector|||8.737||
+plt_forest_subgroup_Age|stem|0ec4f72f8a5de7b1|b74a70c6201bc658|4196dd989e84c710|1385172362||t20565.4606019605s|s2911b|2911|rds|local|vector|||2.696|conversion failure on 'Villamañán, et al.' in 'mbcsToSbcs': for ñ (U+00F1)|
+plt_funnel_subgroup_Age|stem|97ed39136329e01f|2e09ad86794b4326|cf8f0292e022127f|1410815420||t20565.4607105292s|s1452b|1452|rds|local|vector|||0.025||
+plt_funnel_subgroup_JBI_Classification|stem|744d67ba06164fbf|58c688da969728bd|2015e32daea17891|-547233941||t20581.4433891912s|s2472b|2472|rds|local|vector|||0.166||
+plt_forest_subgroup_use_guideline|stem|f6b1426ce7852b01|1b3675ca6db15947|a5a45b90389038d5|-889681374||t20581.4434349849s|s4810b|4810|rds|local|vector|||3.944|conversion failure on 'Villamañán, et al.' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al.' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
+plt_funnel_subgroup_use_guideline|stem|744d67ba06164fbf|16125b5b9e819123|c44b126dbc81ee7b|406077047||t20581.4434800901s|s2472b|2472|rds|local|vector|||0.008||
+plt_forest_subgroup_JBI_Classification|stem|6c4baa19d39c9baa|d7f59d8a9ad4e229|1b536ab9516e5e04|-842214966||t20581.4435042327s|s4873b|4873|rds|local|vector|||2.503|conversion failure on 'Villamañán, et al.' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al.' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
+fpath|stem|38757016eab15583|809f45dcd5ede807|88785947d3fd21e6|-530540549|data/raw/data.csv|t20581.4470998698s|s31053b|31053|file|local|vector|||0.075||
+tbl|stem|1e851708e5d28468|7cecc88e5b740def|5ba76d82c6ba9a53|1753415084||t20581.4472116111s|s10136b|10136|rds|local|vector|||0.162||
+tbl_clean|stem|c2b57289f73e198c|9d46ba4b0e257f0e|ae6e8a4444d27d14|1943731114||t20581.447213342s|s13750b|13750|rds|local|vector|||0.02||
+mod_metareg_mv|stem|e2b252b32410f82b|01596653f7d310f5|78485ef4d49eb0fc|666694482||t20581.4472324729s|s34746b|34746|rds|local|vector|||1.545|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
+mod_copas_subgroup_Age|stem|229d7221baae5f29|d0ce00d4ce664447|ee6a4c75e4ecec1c|-671745572||t20581.4472508995s|s24410b|24410|rds|local|vector|||1.384|NaNs produced. NaNs produced. NaNs produced|
+mod_subgroup_use_guideline|stem|a7cf821dada4deb5|cdaf7139afa33922|81cc4d8ec7047d75|1574898530||t20581.4472589557s|s25478b|25478|rds|local|vector|||0.426||
+mod_subgroup_JBI_Classification|stem|ecfae83b9c33345e|6e1653d5df197d13|81cc4d8ec7047d75|-983823152||t20581.4472678343s|s25478b|25478|rds|local|vector|||2.128||
+mod_metareg_Age|stem|b505c5874d2beb3f|985d1acaa2db4176|3522c130030d9434|418752239||t20581.4472681485s|s23219b|23219|rds|local|vector|||1.588|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
+mod_subgroup_Setting|stem|db7e0f965f975522|b0bd74cccccf37bd|81cc4d8ec7047d75|-1148150178||t20581.4472755889s|s25342b|25342|rds|local|vector|||0.359||
+mod_prop|stem|df9e50055d5ace8b|fd9868083d055a55|f272410a1d56629d|794110157||t20581.4472806568s|s24019b|24019|rds|local|vector|||2.007||
+mod_copas_subgroup_Setting|stem|9fc03f72f9366afc|81ec9869dc8ef29c|ee6a4c75e4ecec1c|59135725||t20581.4472812179s|s34390b|34390|rds|local|vector|||1.686||
+plt_funnel_subgroup_Setting|stem|744d67ba06164fbf|8fb1e9003fd24cad|3afc17be3bb5ef0e|-679070467||t20581.4472821434s|s2472b|2472|rds|local|vector|||0.139||
+plt_funnel_prop|stem|744d67ba06164fbf|0511880fa7f0fa9f|c47ea15adf9cf2fd|-319197324||t20581.447285212s|s2472b|2472|rds|local|vector|||0.137||
+mod_metareg_Setting|stem|32475741918ea25d|e97ce0860aea2010|3522c130030d9434|-56748310||t20581.4472861569s|s28873b|28873|rds|local|vector|||0.051|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
+mod_subgroup_Age|stem|e1cd2a6e616d6b80|1de057f49b5dac23|81cc4d8ec7047d75|1044776827||t20581.4472868277s|s13781b|13781|rds|local|vector|||0.153||
+mod_metareg_Continent|stem|0b7d0ac6efaf1633|9c5af9e61733e2ec|3522c130030d9434|82995815||t20581.4472909773s|s29657b|29657|rds|local|vector|||0.186|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
+mod_subgroup_Continent|stem|f9991400057cdfb6|4e49baa75c3e95ad|81cc4d8ec7047d75|1325324372||t20581.4472971599s|s25922b|25922|rds|local|vector|||0.586||
+mod_metareg_use_guideline|stem|71af7744f32701bf|1a183b80696aa0ab|3522c130030d9434|-1342049052||t20581.4472986085s|s28858b|28858|rds|local|vector|||0.066|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
+mod_metareg_JBI_Classification|stem|d4ab75d70eccb5bb|f91f92a806c04601|3522c130030d9434|-644420020||t20581.4473039994s|s29035b|29035|rds|local|vector|||0.026|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
+plt_funnel_subgroup_Continent|stem|744d67ba06164fbf|25235da2537ef14b|2527a31161bffbc0|-1833395975||t20581.4473071056s|s2472b|2472|rds|local|vector|||0.236||
+mod_copas_subgroup_JBI_Classification|stem|364f9af3814a2cc4|cc59beebb501c10d|ee6a4c75e4ecec1c|63113237||t20581.4473075642s|s35546b|35546|rds|local|vector|||3.119|NaNs produced. NaNs produced. NaNs produced. NaNs produced|
+mod_copas_subgroup_use_guideline|stem|0cd4bc9919f3eac4|972220e085c79e69|ee6a4c75e4ecec1c|1729832472||t20581.447320625s|s35833b|35833|rds|local|vector|||2.697|NaNs produced|
+mod_copas_prop|stem|ff8b5c23a4df82d2|b40ab7d30627e459|c5e4efe022e84d5d|314813646||t20581.4473293924s|s29654b|29654|rds|local|vector|||1.407||
+plt_forest_subgroup_Setting|stem|3bff24eaa3f8d174|c60b6042cfc6d3be|710ecea6f7323e24|-288552749||t20581.4473347963s|s4869b|4869|rds|local|vector|||1.996|conversion failure on 'Villamañán, et al.' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al.' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
+plt_forest_prop|stem|2fa0a27b7940756f|5d93aed313078f9e|a16671c300b3b988|-1219631873||t20581.4473487397s|s4734b|4734|rds|local|vector|||1.774|conversion failure on 'Villamañán, et al.' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al.' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
+plt_forest_subgroup_Continent|stem|85b1cbebb76c0b08|bc50c71ecb2ecd28|6b64692d4089f5bf|1197615728||t20581.447355691s|s5017b|5017|rds|local|vector|||1.03|conversion failure on 'Villamañán, et al.' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al.' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
+mod_copas_subgroup_Continent|stem|a7a1869bfefbb13f|8025b43241ae89b9|ee6a4c75e4ecec1c|1707500982||t20581.4473588824s|s49480b|49480|rds|local|vector|||4.166|NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced|
 readData|function|fa8676af4df3e7d0
 uni_vars|object|0080860a749cf75c
 fitMetareg|function|f38cab5aa71bd838
@@ -38,16 +42,12 @@ vizForest|function|adc5118b91a7ef35
 clean|function|78a268e2c74ccf64
 pkgs|object|baaf8c1678b0b905
 raws|object|bd113c5ba8d65d1c
-.Random.seed|object|0939e109afbae338
+.Random.seed|object|6daccf52b4e59f4b
 pkgs_load|object|0c5ddf24abf09d0e
 seed|object|b831a550d92b48f0
 mv_vars|object|e49ee4cf5664a281
 lsData|function|f3501a44679b5b7d
 applyCopas|function|5a40170edef50793
 fitSubMetaprop|function|fedf792d050fc026
-plt_forest_subgroup_JBI_Classification|stem|c89a415b4d614931|d7f59d8a9ad4e229|76a9e5cf913d41ed|-842214966||t20501.4586240321s|s4817b|4817|rds|local|vector|||2.652|conversion failure on 'Villamañán, et al.' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al.' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
-plt_forest_subgroup_use_guideline|stem|1697e5592ec8957c|1b3675ca6db15947|e216de958030561e|-889681374||t20501.4586333727s|s4754b|4754|rds|local|vector|||2.893|conversion failure on 'Villamañán, et al.' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al.' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
-plt_forest_subgroup_Age|stem|78403de96daf397e|b74a70c6201bc658|9e82739bf3448d30|1385172362||t20501.4586397138s|s2900b|2900|rds|local|vector|||0.75|conversion failure on 'Villamañán, et al.' in 'mbcsToSbcs': for ñ (U+00F1)|
-plt_forest_prop|stem|36e1b2b8e60e1295|5d93aed313078f9e|e11bd17fc6c700a9|-1219631873||t20501.4586408705s|s4677b|4677|rds|local|vector|||2.953|conversion failure on 'Villamañán, et al.' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al.' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
-plt_forest_subgroup_Setting|stem|523c35eb82d38a97|c60b6042cfc6d3be|92b59f99cbdcc9ef|-288552749||t20501.4586485707s|s4811b|4811|rds|local|vector|||2.997|conversion failure on 'Villamañán, et al.' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al.' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
-plt_forest_subgroup_Continent|stem|7c5d953bec6fda35|bc50c71ecb2ecd28|2cdac48a6255c2c8|1197615728||t20501.4586488924s|s4961b|4961|rds|local|vector|||0.613|conversion failure on 'Villamañán, et al.' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al.' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
+readme|stem|c5d8d13182d23e4c|8b3a75d81f94f744|2c530c1562a7fbd1|980901812|README.md*README.qmd|t20593.5552845877s|s13448b|13448|file|local|vector|||9.152||
+report|stem|220f5db2ea8905e7|80dae3d22c8f8ade|e58c91e989f558c0|787668912|docs/report.pdf*docs/report.qmd|t20593.5553208465s|s364802b|364802|file|local|vector|||11.73||

@@ -128,7 +128,7 @@ Contour enhanced funnel plots were generated to assess potential small study eff
 
 ## Software and Reproducibility
 
-All analyses were conducted in `R` version 4.5.1. The computational workflow was managed using the `targets` and `tarchetypes` packages to ensure full reproducibility and traceability of all analytical steps. Parallel processing was implemented with the `crew` package to optimize execution of iterative subgroup and meta regression models.
+All analyses were conducted in `R` version 4.5.2. The computational workflow was managed using the `targets` and `tarchetypes` packages to ensure full reproducibility and traceability of all analytical steps. Parallel processing was implemented with the `crew` package to optimize execution of iterative subgroup and meta regression models.
 
 # Results
 

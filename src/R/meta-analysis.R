@@ -92,9 +92,9 @@ fitMetareg <- function(tbl, varname, ...) {
 }
 
 applyCopas <- function(obj, varname = NULL, ...) {
-  #' Copas Selection objel
+  #' Copas Selection Model
   #'
-  #' Perform a Copas selection objel analysis on a given meta-analysis objel.
+  #' Perform a Copas selection model analysis on a given meta-analysis model.
   #' This analysis will adjust for the probability of publication bias.
   #'
   #' @param obj A meta-analysis model from the `meta` package, otherwise a data
