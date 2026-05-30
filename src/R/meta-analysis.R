@@ -1,6 +1,6 @@
 # Functions to peform meta-analysis
 
-fitMetaprop <- function(tbl, ...) {
+fitMetaprop <- function(tbl, sm = "PLOGIT", method = "GLMM", ...) {
   #' Meta-Analysis for Proportion
   #'
   #' Fit meta-analyis model for proportion data with REML estimator,
@@ -8,6 +8,8 @@ fitMetaprop <- function(tbl, ...) {
   #'
   #' @param tbl A data frame object containing extracted information from the
   #' selected articles
+  #' @param sm Summary measure approach from `meta::metaprop`
+  #' @param method Method for pooling of studies from `meta::metaprop`
   #' @return Metaprop object
   require("meta")
 
@@ -15,13 +17,13 @@ fitMetaprop <- function(tbl, ...) {
     data             = tbl,
     event            = Inappropriate_indication,
     n                = Sample_size,
-    studlab          = Author,
-    sm               = "PFT",
-    method.tau       = "REML",
-    method.random.ci = "HK",
+    studlab          = author_year,
+    sm               = sm,
+    method           = method,
     common           = FALSE,
     random           = TRUE,
     prediction       = TRUE,
+    backtransf       = TRUE,
     ...
   )
 
@@ -42,7 +44,7 @@ fitSubMetaprop <- function(tbl, varname, ...) {
   sub_tbl <- tbl |> dplyr::filter(idx)
 
   mod <- sub_tbl %>% fitMetaprop(
-    subgroup = dplyr::pull(., {{ varname }}), keepdata = TRUE
+    subgroup = dplyr::pull(., {{ varname }}), keepdata = TRUE, ...
   )
 
   return(mod)

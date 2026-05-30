@@ -1,53 +1,81 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-plt_forest_subgroup_Age|stem|0ec4f72f8a5de7b1|b74a70c6201bc658|4196dd989e84c710|1385172362||t20565.4606019605s|s2911b|2911|rds|local|vector|||2.696|conversion failure on 'Villamañán, et al.' in 'mbcsToSbcs': for ñ (U+00F1)|
-plt_funnel_subgroup_Age|stem|97ed39136329e01f|2e09ad86794b4326|cf8f0292e022127f|1410815420||t20565.4607105292s|s1452b|1452|rds|local|vector|||0.025||
-plt_funnel_subgroup_JBI_Classification|stem|744d67ba06164fbf|58c688da969728bd|2015e32daea17891|-547233941||t20581.4433891912s|s2472b|2472|rds|local|vector|||0.166||
-plt_forest_subgroup_use_guideline|stem|f6b1426ce7852b01|1b3675ca6db15947|a5a45b90389038d5|-889681374||t20581.4434349849s|s4810b|4810|rds|local|vector|||3.944|conversion failure on 'Villamañán, et al.' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al.' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
-plt_funnel_subgroup_use_guideline|stem|744d67ba06164fbf|16125b5b9e819123|c44b126dbc81ee7b|406077047||t20581.4434800901s|s2472b|2472|rds|local|vector|||0.008||
-plt_forest_subgroup_JBI_Classification|stem|6c4baa19d39c9baa|d7f59d8a9ad4e229|1b536ab9516e5e04|-842214966||t20581.4435042327s|s4873b|4873|rds|local|vector|||2.503|conversion failure on 'Villamañán, et al.' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al.' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
 fpath|stem|38757016eab15583|809f45dcd5ede807|88785947d3fd21e6|-530540549|data/raw/data.csv|t20581.4470998698s|s31053b|31053|file|local|vector|||0.075||
 tbl|stem|1e851708e5d28468|7cecc88e5b740def|5ba76d82c6ba9a53|1753415084||t20581.4472116111s|s10136b|10136|rds|local|vector|||0.162||
-tbl_clean|stem|c2b57289f73e198c|9d46ba4b0e257f0e|ae6e8a4444d27d14|1943731114||t20581.447213342s|s13750b|13750|rds|local|vector|||0.02||
-mod_metareg_mv|stem|e2b252b32410f82b|01596653f7d310f5|78485ef4d49eb0fc|666694482||t20581.4472324729s|s34746b|34746|rds|local|vector|||1.545|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
-mod_copas_subgroup_Age|stem|229d7221baae5f29|d0ce00d4ce664447|ee6a4c75e4ecec1c|-671745572||t20581.4472508995s|s24410b|24410|rds|local|vector|||1.384|NaNs produced. NaNs produced. NaNs produced|
-mod_subgroup_use_guideline|stem|a7cf821dada4deb5|cdaf7139afa33922|81cc4d8ec7047d75|1574898530||t20581.4472589557s|s25478b|25478|rds|local|vector|||0.426||
-mod_subgroup_JBI_Classification|stem|ecfae83b9c33345e|6e1653d5df197d13|81cc4d8ec7047d75|-983823152||t20581.4472678343s|s25478b|25478|rds|local|vector|||2.128||
-mod_metareg_Age|stem|b505c5874d2beb3f|985d1acaa2db4176|3522c130030d9434|418752239||t20581.4472681485s|s23219b|23219|rds|local|vector|||1.588|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
-mod_subgroup_Setting|stem|db7e0f965f975522|b0bd74cccccf37bd|81cc4d8ec7047d75|-1148150178||t20581.4472755889s|s25342b|25342|rds|local|vector|||0.359||
-mod_prop|stem|df9e50055d5ace8b|fd9868083d055a55|f272410a1d56629d|794110157||t20581.4472806568s|s24019b|24019|rds|local|vector|||2.007||
-mod_copas_subgroup_Setting|stem|9fc03f72f9366afc|81ec9869dc8ef29c|ee6a4c75e4ecec1c|59135725||t20581.4472812179s|s34390b|34390|rds|local|vector|||1.686||
-plt_funnel_subgroup_Setting|stem|744d67ba06164fbf|8fb1e9003fd24cad|3afc17be3bb5ef0e|-679070467||t20581.4472821434s|s2472b|2472|rds|local|vector|||0.139||
-plt_funnel_prop|stem|744d67ba06164fbf|0511880fa7f0fa9f|c47ea15adf9cf2fd|-319197324||t20581.447285212s|s2472b|2472|rds|local|vector|||0.137||
-mod_metareg_Setting|stem|32475741918ea25d|e97ce0860aea2010|3522c130030d9434|-56748310||t20581.4472861569s|s28873b|28873|rds|local|vector|||0.051|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
-mod_subgroup_Age|stem|e1cd2a6e616d6b80|1de057f49b5dac23|81cc4d8ec7047d75|1044776827||t20581.4472868277s|s13781b|13781|rds|local|vector|||0.153||
-mod_metareg_Continent|stem|0b7d0ac6efaf1633|9c5af9e61733e2ec|3522c130030d9434|82995815||t20581.4472909773s|s29657b|29657|rds|local|vector|||0.186|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
-mod_subgroup_Continent|stem|f9991400057cdfb6|4e49baa75c3e95ad|81cc4d8ec7047d75|1325324372||t20581.4472971599s|s25922b|25922|rds|local|vector|||0.586||
-mod_metareg_use_guideline|stem|71af7744f32701bf|1a183b80696aa0ab|3522c130030d9434|-1342049052||t20581.4472986085s|s28858b|28858|rds|local|vector|||0.066|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
-mod_metareg_JBI_Classification|stem|d4ab75d70eccb5bb|f91f92a806c04601|3522c130030d9434|-644420020||t20581.4473039994s|s29035b|29035|rds|local|vector|||0.026|There are outcomes with non-positive sampling variances.. Negative sampling variances constrained to 0.. Cannot compute QE-test, I^2, or H^2 when there are non-positive sampling variances in the data.|
-plt_funnel_subgroup_Continent|stem|744d67ba06164fbf|25235da2537ef14b|2527a31161bffbc0|-1833395975||t20581.4473071056s|s2472b|2472|rds|local|vector|||0.236||
-mod_copas_subgroup_JBI_Classification|stem|364f9af3814a2cc4|cc59beebb501c10d|ee6a4c75e4ecec1c|63113237||t20581.4473075642s|s35546b|35546|rds|local|vector|||3.119|NaNs produced. NaNs produced. NaNs produced. NaNs produced|
-mod_copas_subgroup_use_guideline|stem|0cd4bc9919f3eac4|972220e085c79e69|ee6a4c75e4ecec1c|1729832472||t20581.447320625s|s35833b|35833|rds|local|vector|||2.697|NaNs produced|
-mod_copas_prop|stem|ff8b5c23a4df82d2|b40ab7d30627e459|c5e4efe022e84d5d|314813646||t20581.4473293924s|s29654b|29654|rds|local|vector|||1.407||
-plt_forest_subgroup_Setting|stem|3bff24eaa3f8d174|c60b6042cfc6d3be|710ecea6f7323e24|-288552749||t20581.4473347963s|s4869b|4869|rds|local|vector|||1.996|conversion failure on 'Villamañán, et al.' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al.' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
-plt_forest_prop|stem|2fa0a27b7940756f|5d93aed313078f9e|a16671c300b3b988|-1219631873||t20581.4473487397s|s4734b|4734|rds|local|vector|||1.774|conversion failure on 'Villamañán, et al.' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al.' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
-plt_forest_subgroup_Continent|stem|85b1cbebb76c0b08|bc50c71ecb2ecd28|6b64692d4089f5bf|1197615728||t20581.447355691s|s5017b|5017|rds|local|vector|||1.03|conversion failure on 'Villamañán, et al.' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al.' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
-mod_copas_subgroup_Continent|stem|a7a1869bfefbb13f|8025b43241ae89b9|ee6a4c75e4ecec1c|1707500982||t20581.4473588824s|s49480b|49480|rds|local|vector|||4.166|NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced|
+readme|stem|c5d8d13182d23e4c|8b3a75d81f94f744|2c530c1562a7fbd1|980901812|README.md*README.qmd|t20593.5552845877s|s13448b|13448|file|local|vector|||9.152||
+tbl_clean|stem|db378b2c1681c36f|9d46ba4b0e257f0e|1a56b86dad242df6|1943731114||t20603.4942664302s|s15208b|15208|rds|local|vector|||0.022||
+mod_metareg_Age|stem|93d25b40ad83c798|985d1acaa2db4176|d858e9962490c8be|418752239||t20603.4943716279s|s25095b|25095|rds|local|vector|||4.495||
+mod_prop_sens_pft|stem|a0651c7377f1e4f5|75e8f9e8b63b1485|446fc9b3b9af8816|-792881060||t20603.4943810901s|s25374b|25374|rds|local|vector|||0.176||
+mod_metareg_mv|stem|4c85a30cd3db7fc6|01596653f7d310f5|86752447cb2fb686|666694482||t20603.4943850931s|s37015b|37015|rds|local|vector|||0.065||
+mod_metareg_JBI_Classification|stem|58b1d9b2240aab10|f91f92a806c04601|d858e9962490c8be|-644420020||t20603.4943914093s|s31320b|31320|rds|local|vector|||0.045||
+mod_copas_subgroup_JBI_Classification|stem|a73a1d4d8cb81134|cc59beebb501c10d|76fb72f811a25b74|63113237||t20603.4944018363s|s1324239b|1324239|rds|local|vector|||8.723|NaNs produced. NaNs produced. NaNs produced|
+mod_metareg_use_guideline|stem|134beaf528c82f37|1a183b80696aa0ab|d858e9962490c8be|-1342049052||t20603.494449949s|s31099b|31099|rds|local|vector|||0.05||
+mod_metareg_Setting|stem|f0e84decce8b1cb3|e97ce0860aea2010|d858e9962490c8be|-56748310||t20603.4944580903s|s31108b|31108|rds|local|vector|||0.053||
+mod_copas_subgroup_Age|stem|b10b1522bde9d6b3|d0ce00d4ce664447|76fb72f811a25b74|-671745572||t20603.4944833507s|s1303416b|1303416|rds|local|vector|||4.426|NaNs produced. NaNs produced. NaNs produced|
+mod_prop_sens_logit|stem|505e4219c1578665|88adfb127408ff31|446fc9b3b9af8816|703976236||t20603.4945132088s|s26789b|26789|rds|local|vector|||0.276||
+mod_prop|stem|9b459e8c3c7a24ef|fd9868083d055a55|446fc9b3b9af8816|794110157||t20603.4945766334s|s1067180b|1067180|rds|local|vector|||0.434||
+plt_forest_prop|stem|ee0c750f8e60c787|5d93aed313078f9e|aebfcd21e23c9ac9|-1219631873||t20603.4945925464s|s5049b|5049|rds|local|vector|||0.576|conversion failure on 'Villamañán, et al. (2015)' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al. (2019)' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
+mod_copas_subgroup_use_guideline|stem|c32d6f7d6eb9e2d4|972220e085c79e69|76fb72f811a25b74|1729832472||t20603.4945978082s|s1322667b|1322667|rds|local|vector|||3.608|NaNs produced. NaNs produced|
+mod_metareg_Continent|stem|107010a236b9f0ff|9c5af9e61733e2ec|d858e9962490c8be|82995815||t20603.4945988022s|s31918b|31918|rds|local|vector|||0.076||
+mod_copas_subgroup_Setting|stem|8f4b27351411a5ea|81ec9869dc8ef29c|76fb72f811a25b74|59135725||t20603.4946023796s|s1699138b|1699138|rds|local|vector|||7.073|NaNs produced|
+mod_copas_subgroup_Continent|stem|091009e343ddd5e7|8025b43241ae89b9|76fb72f811a25b74|1707500982||t20603.4946094007s|s2603823b|2603823|rds|local|vector|||7.538|NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced|
+plt_funnel_prop|stem|9164045b9f552535|0511880fa7f0fa9f|5b56798ba23bfeae|-319197324||t20603.4946489881s|s2583b|2583|rds|local|vector|||0.039||
+sens_overall_tbl|stem|d7f82a046c7e132f|4275ee5293490b68|4ddc5d21754d36d8|1979391188||t20603.4946976392s|s376b|376|rds|local|vector|||0.076||
+mod_copas_prop|stem|7c10d661aa774c03|b40ab7d30627e459|c06b12cfc5f26e23|314813646||t20603.4947295262s|s1071502b|1071502|rds|local|vector|||2.367||
+mod_subgroup_sens_logit_Setting|stem|162f9c91d8ce1956|d94c082331cbb537|c543e14993394330|1812057423||t20603.6109478756s|s28128b|28128|rds|local|vector|||3.712||
+mod_subgroup_sens_pft_Continent|stem|9d9f41d06461ef5a|fd4a85ed5f0a9349|c543e14993394330|1637052139||t20603.6109673336s|s27287b|27287|rds|local|vector|||4.735||
+mod_subgroup_sens_logit_Continent|stem|1404d16bf4ea7b6f|5aec15830e63e9ba|c543e14993394330|1941404955||t20603.6109685902s|s28697b|28697|rds|local|vector|||0.836||
+mod_subgroup_Continent|stem|ac39ca5ae91eefd5|4e49baa75c3e95ad|c543e14993394330|1325324372||t20603.6109708618s|s671886b|671886|rds|local|vector|||5.348||
+mod_subgroup_sens_logit_use_guideline|stem|6047cd145052066a|43534e450ba0281f|c543e14993394330|-1602960321||t20603.6109760395s|s28269b|28269|rds|local|vector|||4.681||
+mod_subgroup_sens_pft_Age|stem|4a484407e50bfdea|0b661ef6369178a0|c543e14993394330|2010276707||t20603.6109812616s|s14794b|14794|rds|local|vector|||0.192||
+sens_subgroup_Continent|stem|b76ed0eeab4cb4b6|5008a9e0c601ef3e|24ce6287b16bec12|862080356||t20603.6109904305s|s540b|540|rds|local|vector|||0.063||
+mod_subgroup_sens_pft_use_guideline|stem|2a17fcad2eba8de4|a60ce5b72e618694|c543e14993394330|2031371431||t20603.6109933744s|s26841b|26841|rds|local|vector|||0.428||
+mod_subgroup_sens_pft_JBI_Classification|stem|ca2b67669630d14a|af71e6a6c2483f0c|c543e14993394330|512256308||t20603.6109981613s|s26846b|26846|rds|local|vector|||0.492||
+sens_subgroup_tbl_Continent|stem|d7f82a046c7e132f|b6cd09a0f570546f|1ea1586cd4ef9b6e|1973304150||t20603.6110027949s|s376b|376|rds|local|vector|||0.027||
+mod_subgroup_sens_logit_Age|stem|24b98c98cc65653e|fb070e6907190a2e|c543e14993394330|566627937||t20603.6110042026s|s15366b|15366|rds|local|vector|||0.163||
+mod_subgroup_Age|stem|aa379f0ca6597963|1de057f49b5dac23|c543e14993394330|1044776827||t20603.6110124691s|s653801b|653801|rds|local|vector|||1.85||
+mod_subgroup_sens_logit_JBI_Classification|stem|9cbe6b132bbb523a|4f36c97fa4d54e58|c543e14993394330|-561214027||t20603.6110137421s|s28275b|28275|rds|local|vector|||0.39||
+mod_subgroup_sens_pft_Setting|stem|e916de3ebd879d88|bfcf93d2afd4cd62|c543e14993394330|1560408599||t20603.6110327192s|s26712b|26712|rds|local|vector|||0.789||
+mod_subgroup_JBI_Classification|stem|219c73d5a89524ad|6e1653d5df197d13|c543e14993394330|-983823152||t20603.6110408747s|s671495b|671495|rds|local|vector|||2.012||
+plt_forest_subgroup_Age|stem|ab5b6be01d555e88|b74a70c6201bc658|8f9f98bd9e15d258|1385172362||t20603.6110439997s|s3156b|3156|rds|local|vector|||1.337|conversion failure on 'Villamañán, et al. (2015)' in 'mbcsToSbcs': for ñ (U+00F1)|
+mod_subgroup_use_guideline|stem|eba8937faf0faa6b|cdaf7139afa33922|c543e14993394330|1574898530||t20603.611046939s|s671496b|671496|rds|local|vector|||2.151||
+sens_overall|stem|b76ed0eeab4cb4b6|8dbd0c8ce08243eb|af8c4e851c1463b0|-2018738015||t20603.6110631851s|s540b|540|rds|local|vector|||0.033||
+plt_funnel_subgroup_JBI_Classification|stem|9164045b9f552535|58c688da969728bd|31e5883f03b1f78a|-547233941||t20603.6110634445s|s2583b|2583|rds|local|vector|||0.204||
+sens_subgroup_use_guideline|stem|b76ed0eeab4cb4b6|f680b20ea631a464|3e3c7976108e9d00|1938994527||t20603.6110635s|s540b|540|rds|local|vector|||0.035||
+mod_subgroup_Setting|stem|41764430bc0807bb|b0bd74cccccf37bd|c543e14993394330|-1148150178||t20603.6110714646s|s671420b|671420|rds|local|vector|||1.788||
+sens_subgroup_tbl_use_guideline|stem|d7f82a046c7e132f|5a6abdcabda57e36|ecc48af7854a5397|718439639||t20603.6110764369s|s376b|376|rds|local|vector|||0.084||
+plt_funnel_subgroup_Continent|stem|9164045b9f552535|25235da2537ef14b|97941a06fc6f9dc8|-1833395975||t20603.6110783804s|s2583b|2583|rds|local|vector|||0.215||
+sens_subgroup_Setting|stem|b76ed0eeab4cb4b6|289404b25ec5428c|7eb5a0e9f974ac11|1019066237||t20603.61108977s|s540b|540|rds|local|vector|||0.04||
+plt_funnel_subgroup_Age|stem|38f453b7f81c4ed1|2e09ad86794b4326|bff05e0ace5a2ca3|1410815420||t20603.6110948061s|s1492b|1492|rds|local|vector|||0.06||
+sens_subgroup_Age|stem|730e255754cbd1c4|9871a40e6802dbcf|3aa5b16c16f04e71|-689376823||t20603.6110989551s|s542b|542|rds|local|vector|||0.042||
+sens_subgroup_tbl_Setting|stem|d7f82a046c7e132f|990a76e6e52b71c2|ced078617698d313|-1575498888||t20603.6111071921s|s376b|376|rds|local|vector|||0.014||
+sens_subgroup_tbl_Age|stem|8f370835a6ee9c00|68b187aea9453a80|f2e27aa6f767e1ca|-2069123547||t20603.611118601s|s385b|385|rds|local|vector|||0.029||
+sens_subgroup_JBI_Classification|stem|b76ed0eeab4cb4b6|4a980683c5616bdb|f215950aa6e03397|-392248393||t20603.6111249176s|s540b|540|rds|local|vector|||0.031||
+plt_forest_subgroup_Continent|stem|e19e0a8f19a9ab7e|bc50c71ecb2ecd28|fd5f6761aab4e6ef|1197615728||t20603.611127384s|s5450b|5450|rds|local|vector|||4.5|conversion failure on 'Villamañán, et al. (2015)' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al. (2019)' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
+plt_funnel_subgroup_use_guideline|stem|9164045b9f552535|16125b5b9e819123|570ba61db563a3ea|406077047||t20603.6111340955s|s2583b|2583|rds|local|vector|||0.051||
+sens_subgroup_tbl_JBI_Classification|stem|d7f82a046c7e132f|fbb257deaf7cbe08|a1060dfaae6ac9e2|14167131||t20603.611139196s|s376b|376|rds|local|vector|||0.009||
+plt_forest_subgroup_JBI_Classification|stem|06d34a5fb40255b8|d7f59d8a9ad4e229|b434b03998ca7888|-842214966||t20603.6111557111s|s5308b|5308|rds|local|vector|||3.437|conversion failure on 'Villamañán, et al. (2015)' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al. (2019)' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
+plt_funnel_subgroup_Setting|stem|9164045b9f552535|8fb1e9003fd24cad|9803d7c9012124a6|-679070467||t20603.6111573912s|s2583b|2583|rds|local|vector|||0.245||
+plt_forest_subgroup_use_guideline|stem|61eb198d3a346e35|1b3675ca6db15947|4233b452b01928cd|-889681374||t20603.611163971s|s5224b|5224|rds|local|vector|||1.131|conversion failure on 'Villamañán, et al. (2015)' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al. (2019)' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
+plt_forest_subgroup_Setting|stem|237c66f76d474072|c60b6042cfc6d3be|d5ca28a7d765ef03|-288552749||t20603.6111646716s|s5288b|5288|rds|local|vector|||0.974|conversion failure on 'Villamañán, et al. (2015)' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al. (2019)' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
 readData|function|fa8676af4df3e7d0
 uni_vars|object|0080860a749cf75c
 fitMetareg|function|f38cab5aa71bd838
-funs|object|110fce9dd18b41ce
-fitMetaprop|function|f68a4d8c8b29d7ba
+reportSensitivity|function|7b1b2d42c59c0572
+funs|object|604cfa06e2696b46
+fitMetaprop|function|4d5e0256a3a4f188
 vizFunnel|function|7132687659f3941d
 vizForest|function|adc5118b91a7ef35
-clean|function|78a268e2c74ccf64
+clean|function|5eb91b424e8f872c
 pkgs|object|baaf8c1678b0b905
 raws|object|bd113c5ba8d65d1c
-.Random.seed|object|6daccf52b4e59f4b
+.Random.seed|object|dc6a3d8cbbb867f3
+backTransformMetric|function|5aa881f803c1139c
 pkgs_load|object|0c5ddf24abf09d0e
 seed|object|b831a550d92b48f0
 mv_vars|object|e49ee4cf5664a281
 lsData|function|f3501a44679b5b7d
-applyCopas|function|5a40170edef50793
-fitSubMetaprop|function|fedf792d050fc026
-readme|stem|c5d8d13182d23e4c|8b3a75d81f94f744|2c530c1562a7fbd1|980901812|README.md*README.qmd|t20593.5552845877s|s13448b|13448|file|local|vector|||9.152||
-report|stem|220f5db2ea8905e7|80dae3d22c8f8ade|e58c91e989f558c0|787668912|docs/report.pdf*docs/report.qmd|t20593.5553208465s|s364802b|364802|file|local|vector|||11.73||
+applyCopas|function|ad8601ff8adf2df4
+fitSubMetaprop|function|f038391a7da94639
+extractResults|function|d942b803b4275dc4
+compareModels|function|dcc435a2e9d69d72
+report|stem|1a7eb1c79676a0ff|61db29ca7edbae10|fa26fff8638ed654|787668912|docs/report.pdf*docs/report.qmd|t20603.6396964801s|s391387b|391387|file|local|vector|||10.523||

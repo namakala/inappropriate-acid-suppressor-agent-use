@@ -13,6 +13,7 @@ clean <- function(tbl, ...) {
     dplyr::mutate(
       "Age" = `Patient's age`,
       "Year" = as.integer(`Year of Publication`),
+      "author_year" = sprintf("%s (%d)", Author, Year),
       "Prevalence" = gsub(x = Prevalence, ",", ".") |> as.numeric(),
       "Sample_size" = as.integer(`Sample size`),
       "Inappropriate_indication" = as.integer(`Inappropriate indication`),
@@ -30,7 +31,7 @@ clean <- function(tbl, ...) {
         `Guideline` == "Yes", "Followed Guideline(s)", "No Guideline"
       ),
       "logit_prevalence" = log(Prevalence / (1 - Prevalence)),
-      "var_logit_prevalence" = 1 / (Sample_size * logit_prevalence)
+      "var_logit_prevalence" = 1 / (Sample_size * Prevalence * (1 - Prevalence))
     ) %>%
     set_names(names(.) |> make.names())
 

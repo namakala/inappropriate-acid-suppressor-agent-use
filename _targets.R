@@ -44,6 +44,35 @@ list(
 
   # Meta-analysis of proportion data
   tar_target(mod_prop, fitMetaprop(tbl_clean)),
+  tar_target(
+    mod_prop_sens_logit,
+    fitMetaprop(
+      tbl_clean,
+      method = "Inverse",
+      method.tau = "REML",
+      method.random.ci = "HK"
+    )
+  ),
+  tar_target(
+    mod_prop_sens_pft,
+    fitMetaprop(
+      tbl_clean,
+      sm = "PFT",
+      method = "Inverse",
+      method.tau = "REML",
+      method.random.ci = "HK"
+    )
+  ),
+  tar_target(
+    sens_overall,
+    compareModels(
+      mod_prop, mod_prop_sens_logit, mod_prop_sens_pft
+    )
+  ),
+  tar_target(
+    sens_overall_tbl,
+    reportSensitivity(sens_overall)
+  ),
   tar_target(mod_copas_prop, applyCopas(mod_prop)),
   tar_target(plt_forest_prop, vizForest(mod_prop, file = "docs/figures/meta-analysis-prevalence.pdf")),
   tar_target(plt_funnel_prop, vizFunnel(mod_prop)),
@@ -62,7 +91,38 @@ list(
         print.subgroup.name = FALSE
       )
     ),
-    tar_target(plt_funnel_subgroup, vizFunnel(mod_subgroup))
+    tar_target(plt_funnel_subgroup, vizFunnel(mod_subgroup)),
+    tar_target(
+      mod_subgroup_sens_logit,
+      fitSubMetaprop(
+        tbl_clean,
+        varname          = rlang::sym(colname),
+        method           = "Inverse",
+        method.tau       = "REML",
+        method.random.ci = "HK"
+      )
+    ),
+    tar_target(
+      mod_subgroup_sens_pft,
+      fitSubMetaprop(
+        tbl_clean,
+        varname          = rlang::sym(colname),
+        sm               = "PFT",
+        method           = "Inverse",
+        method.tau       = "REML",
+        method.random.ci = "HK"
+      )
+    ),
+    tar_target(
+      sens_subgroup,
+      compareModels(
+        mod_subgroup, mod_subgroup_sens_logit, mod_subgroup_sens_pft
+      )
+    ),
+    tar_target(
+      sens_subgroup_tbl,
+      reportSensitivity(sens_subgroup)
+    )
   ),
 
   # Univariable and multivariable meta-regression models

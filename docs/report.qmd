@@ -54,16 +54,31 @@ getMetaDetails <- function(meta_object) {
 
 }
 
-pft2p <- function(x, n) {
-  harmonic_n <- {1 / mean(1 / n)}
-  p <- meta::backtransf(x, sm = "PFT", n = harmonic_n)
+plogit2p <- function(x, n) {
+  p <- meta::backtransf(x, sm = "PLOGIT")
   return(p)
 }
 
 printSummary <- function(mod, detail = FALSE) {
   require("meta")
 
-  harmonic_n <- {1 / mean(1 / mod$n)}
+  if (!is.null(mod$bylevs)) {
+    cat("**Subgroup-specific results:**\n\n")
+    for (i in seq_along(mod$bylevs)) {
+      lbl  <- mod$bylevs[i]
+      p_i  <- plogit2p(mod$TE.random.w[i],    n = NULL) * 100
+      lb_i <- plogit2p(mod$lower.random.w[i], n = NULL) * 100
+      ub_i <- plogit2p(mod$upper.random.w[i], n = NULL) * 100
+      n_i  <- mod$k.w[i]
+      t2_i <- mod$tau2.w[i]
+      i2_i <- mod$I2.w[i] * 100
+      catf(
+        "- **%s**: %.1f%% [%.1f%%, %.1f%%]  (k = %d, τ² = %.3f, I² = %.1f%%)\n",
+        lbl, p_i, lb_i, ub_i, n_i, t2_i, i2_i
+      )
+    }
+    return(invisible(mod))
+  }
 
   msg_hetero <- c("$\\tau^2$: %.3f", "$I^2$: %.2f%%", "$H$: %.2f", "Wald's $Q$: %s\n\n") |>
     paste(collapse = "\n- ")
@@ -73,9 +88,9 @@ printSummary <- function(mod, detail = FALSE) {
   catf(
     "**%s: %.3f [%.3f, %.3f]**  \n",
     res$text.random,
-    pft2p(res$TE.random,    n = mod$n),
-    pft2p(res$lower.random, n = mod$n),
-    pft2p(res$upper.random, n = mod$n)
+    plogit2p(res$TE.random,    n = mod$n),
+    plogit2p(res$lower.random, n = mod$n),
+    plogit2p(res$upper.random, n = mod$n)
   )
   catf("Number of studies: %d  \n", res$k)
   catf("Number of observations: %s  \n", prettyNum(sum(res$n), big.mark = ","))
@@ -116,7 +131,7 @@ Raw data were cleaned by harmonizing of study level variables and standardizing 
 
 ## Pooled Prevalence Estimation
 
-The data was fitted to random effects models to account for anticipated between study heterogeneity in prevalence estimates. The Freeman-Tukey double arcsine transformation was applied to stabilize variances and ensure that resulting confidence intervals remained within the 0 to 1 range. Between study variance $\tau^2$ was estimated using the restricted maximum likelihood method. The Hartung-Knapp adjustment was applied to provide more conservative 95% confidence intervals and reduce the risk of Type I error. A 95% prediction interval was also calculated to estimate the expected range of prevalence in future studies with similar characteristics.
+A generalized linear mixed model (GLMM) with a logit link was used to pool prevalence estimates. This one-step approach models the number of inappropriate prescriptions directly using the binomial likelihood, fully accounting for the binomial data structure and between-study heterogeneity. Between-study variance $\tau^2$ was estimated via restricted maximum likelihood. A 95% prediction interval was calculated to estimate the expected range of prevalence in future studies with similar characteristics.
 
 ## Assessment of Heterogeneity
 
@@ -125,6 +140,9 @@ Statistical heterogeneity was evaluated using $I^2$, $\tau^2$, H statistics, and
 ## Publication Bias and Sensitivity Analysis
 
 Contour enhanced funnel plots were generated to assess potential small study effects and publication bias. To further evaluate and adjust for potential selection bias, the Copas selection model was applied. This approach models the probability of study inclusion as a function of effect size and statistical significance, allowing adjustment of pooled estimates under varying selection assumptions. Copas modeling was conducted for the overall dataset and within predefined subgroups.
+
+To assess the robustness of the pooled prevalence to modeling choices, the primary GLMM result was compared against two alternative approaches: an inverse-variance logit model with REML and Hartung-Knapp adjustment, and a Freeman-Tukey double arcsine model with REML and Hartung-Knapp adjustment.
+
 
 ## Software and Reproducibility
 
@@ -143,7 +161,7 @@ event <- sum(mod_prop$event) |> prettyNum(big.mark = ",")
 prev <- with(
   mod_prop, lapply(
     c(TE.random, lower.random, upper.random), function(x) {
-      round(pft2p(x, n = n) * 100, 2)
+      round(plogit2p(x, n = n) * 100, 2)
     }
   )
 ) |> set_names(c("p", "lb", "ub"))
@@ -238,19 +256,36 @@ tar_read(mod_copas_prop) %T>% plot() |> summary()
 
 ```
 
+## Sensitivity analysis on the whole dataset
+
+```{r sens-table, results = "asis"}
+tar_load(sens_overall_tbl)
+
+knitr::kable(
+  sens_overall_tbl,
+  booktabs = TRUE,
+  col.names = c(
+    "Model", "k", "N", "Prevalence (95% CI)",
+    "$\\tau^2$", "$I^2$", "95% PI", "$\\Delta$ Prev (pp)"),
+  align = "lrrrrrrr"
+)
+```
+
 \pagebreak
 
 ## Subgroup meta-analysis
 
 ```{r subgroup-summary, results = "asis"}
 
-obj_subgroups <- tar_objects(dplyr::contains("mod_subgroup"))
+obj_subgroups <- tar_objects(dplyr::contains("mod_subgroup")) %>%
+  {extract(., !grepl(x = ., "sens"))}
 
 for (obj in obj_subgroups) {
   catf("\n## Model: `%s`\n\n", obj)
   tar_load(obj)
   printSummary(get(obj))
   #meta::funnel(get(obj), type = "contour")
+  cat("\n\n")
   metasens::doiplot(get(obj))
   title(sprintf(funnel_title, obj))
   cat("\n\n")
@@ -259,6 +294,18 @@ for (obj in obj_subgroups) {
   cat("```\n\n")
   lapply(get(obj_copas), summary) |> print()
   cat("```\n\n")
+
+  sens_tbl <- gsub(x = obj, "mod_subgroup", "sens_subgroup_tbl")
+  tar_load(sens_tbl)
+  cat("\n**Sensitivity Analysis**\n\n")
+  print(knitr::kable(
+    get(sens_tbl),
+    booktabs = TRUE,
+    col.names = c("Model", "k", "N", "Prevalence (95% CI)",
+                  "$\\tau^2$", "$I^2$", "95% PI", "$\\Delta$ Prev (pp)"),
+    align = "lrrrrrrr"
+  ))
+  cat("\n\n")
   cat("\\pagebreak")
 }
 
