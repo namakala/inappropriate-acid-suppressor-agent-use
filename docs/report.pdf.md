@@ -35,7 +35,7 @@ Inappropriate use of acid suppressing agents was highly prevalent, affecting app
 
 ## Data Processing and Variable Standardization
 
-Raw data were cleaned by harmonizing of study level variables and standardizing the outcome measures across all included studies. The prevalence of inappropriate use of acid suppressing agents was calculated as the proportion of participants within each study who met criteria for inappropriate use relative to the total study specific sample size.  To support statistical modeling, prevalence estimates were logit transformed, and corresponding sampling variances were computed for each study.  Geographic region was classified as North America, Asia, Europe, or Other. Clinical setting was dichotomized as hospital setting versus other settings. Guideline adherence was categorized as studies that explicitly followed defined clinical guidelines versus those that did not specify guideline use.
+Raw data were cleaned by harmonizing of study level variables and standardizing the outcome measures across all included studies. The prevalence of inappropriate use of acid suppressing agents was calculated as the proportion of participants within each study who met criteria for inappropriate use relative to the total study specific sample size.  To support statistical modeling, prevalence estimates were logit transformed, and corresponding sampling variances were computed for each study.  Geographic region was classified as North America, Asia, Europe, or Other, with North America as the reference category. Clinical setting was dichotomized as hospital setting versus other settings, with hospital setting as the reference. Guideline adherence was categorized as studies that explicitly followed defined clinical guidelines versus those that did not specify guideline use, with guideline use as the reference. Methodological quality was classified according to JBI criteria as high or medium quality, with high quality as the reference. Publication year was categorized into three periods (2002–2015, 2016–2020, 2021–2025) to capture potential temporal trends without assuming linearity, with the earliest period as the reference.
 
 ## Pooled Prevalence Estimation
 
@@ -106,7 +106,7 @@ Differences in pooled prevalence were observed between inpatient and outpatient 
 
 ## Meta Regression
 
-Although certain moderators were associated with differences in pooled prevalence, substantial residual heterogeneity remained. No single factor adequately accounted for the extreme variability observed across studies.
+In the multivariable meta-regression, the overall test of moderators was not statistically significant (QM = 14.20, p = 0.077), and the included study-level covariates explained only 3.85% of the extreme between-study heterogeneity. Of the individual covariates, only clinical setting showed a nominally significant association (p = 0.027), with non-hospital settings having lower prevalence of inappropriate prescribing. These results indicate that the measured study characteristics, individually or collectively, do not adequately account for the observed variability in inappropriate prescribing rates. Substantial residual heterogeneity remained (I² = 99.56%, τ² = 0.866).
 
 \pagebreak
 
@@ -244,7 +244,8 @@ Heterogeneity measures:
 
 ```
 
-[[1]]
+**<65**
+
 Copas selection model analysis
 
               p.publ PLOGIT            95%-CI  tau^2    tau    p.trt  p.rsb  N
@@ -285,7 +286,9 @@ Calculation of orthogonal line:
  p.rsb  - P-value for test of residual selection bias
  N      - Estimated number of unpublished studies
 
-[[2]]
+
+**>=65**
+
 Copas selection model analysis
 
               p.publ  PLOGIT             95%-CI  tau^2    tau  p.trt  p.rsb  N
@@ -357,7 +360,8 @@ Calculation of orthogonal line:
 
 ```
 
-[[1]]
+**Asia**
+
 Copas selection model analysis
 
               p.publ  PLOGIT            95%-CI  tau^2    tau  p.trt  p.rsb  N
@@ -413,7 +417,9 @@ Calculation of orthogonal line:
  p.rsb  - P-value for test of residual selection bias
  N      - Estimated number of unpublished studies
 
-[[2]]
+
+**North America**
+
 Copas selection model analysis
 
               p.publ PLOGIT            95%-CI  tau^2    tau  p.trt  p.rsb  N
@@ -469,7 +475,9 @@ Calculation of orthogonal line:
  p.rsb  - P-value for test of residual selection bias
  N      - Estimated number of unpublished studies
 
-[[3]]
+
+**Europe**
+
 Copas selection model analysis
 
               p.publ PLOGIT            95%-CI  tau^2    tau  p.trt  p.rsb  N
@@ -523,7 +531,9 @@ Calculation of orthogonal line:
  p.rsb  - P-value for test of residual selection bias
  N      - Estimated number of unpublished studies
 
-[[4]]
+
+**Other**
+
 Copas selection model analysis
 
               p.publ  PLOGIT            95%-CI  tau^2    tau  p.trt  p.rsb  N
@@ -595,7 +605,8 @@ Calculation of orthogonal line:
 
 ```
 
-[[1]]
+**High Quality**
+
 Copas selection model analysis
 
               p.publ PLOGIT            95%-CI  tau^2    tau  p.trt  p.rsb  N
@@ -653,7 +664,9 @@ Calculation of orthogonal line:
  p.rsb  - P-value for test of residual selection bias
  N      - Estimated number of unpublished studies
 
-[[2]]
+
+**Medium Quality**
+
 Copas selection model analysis
 
               p.publ  PLOGIT             95%-CI  tau^2    tau    p.trt  p.rsb
@@ -752,7 +765,8 @@ Calculation of orthogonal line:
 
 ```
 
-[[1]]
+**Hospital Setting**
+
 Copas selection model analysis
 
               p.publ PLOGIT            95%-CI  tau^2    tau  p.trt  p.rsb   N
@@ -797,7 +811,9 @@ Calculation of orthogonal line:
  p.rsb  - P-value for test of residual selection bias
  N      - Estimated number of unpublished studies
 
-[[2]]
+
+**Other**
+
 Copas selection model analysis
 
               p.publ  PLOGIT            95%-CI  tau^2    tau  p.trt  p.rsb  N
@@ -877,7 +893,8 @@ Calculation of orthogonal line:
 
 ```
 
-[[1]]
+**Followed Guideline(s)**
+
 Copas selection model analysis
 
               p.publ PLOGIT            95%-CI  tau^2    tau  p.trt  p.rsb   N
@@ -934,7 +951,9 @@ Calculation of orthogonal line:
  p.rsb  - P-value for test of residual selection bias
  N      - Estimated number of unpublished studies
 
-[[2]]
+
+**No Guideline**
+
 Copas selection model analysis
 
               p.publ PLOGIT            95%-CI  tau^2    tau  p.trt  p.rsb N
@@ -1007,6 +1026,8 @@ Calculation of orthogonal line:
 
 ### Model: `mod_metareg_Age`
 
+*Reference: <65*  
+
 ```
 
 
@@ -1042,6 +1063,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 \pagebreak
 ### Model: `mod_metareg_Continent`
+
+*Reference: North America*  
 
 ```
 
@@ -1080,6 +1103,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 \pagebreak
 ### Model: `mod_metareg_JBI_Classification`
+
+*Reference: High Quality*  
 
 ```
 
@@ -1120,6 +1145,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 \pagebreak
 ### Model: `mod_metareg_Setting`
 
+*Reference: Hospital Setting*  
+
 ```
 
 
@@ -1155,6 +1182,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 \pagebreak
 ### Model: `mod_metareg_use_guideline`
+
+*Reference: Followed Guideline(s)*  
 
 ```
 
@@ -1195,6 +1224,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 ### Multivariate model
 
+Reference categories: North America (Continent), Hospital Setting (Setting), High Quality (JBI Classification), Followed Guideline(s) (use\_guideline), 2002–2015 (Year\_ordinal).
+
 
 
 ::: {.cell}
@@ -1205,42 +1236,44 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 | Mixed-Effects Model (k = 141; tau^2 estimator: REML)
 | 
 |    logLik   deviance        AIC        BIC       AICc   
-| -182.3690   364.7379   384.7379   413.5659   386.5561   
+| -181.0456   362.0912   384.0912   415.7183   386.3097   
 | 
-| tau^2 (estimated amount of residual heterogeneity):     0.8655 (SE = 0.1105)
-| tau (square root of estimated tau^2 value):             0.9303
-| I^2 (residual heterogeneity / unaccounted variability): 99.56%
-| H^2 (unaccounted variability / sampling variability):   225.67
-| R^2 (amount of heterogeneity accounted for):            3.85%
+| tau^2 (estimated amount of residual heterogeneity):     0.8684 (SE = 0.1112)
+| tau (square root of estimated tau^2 value):             0.9319
+| I^2 (residual heterogeneity / unaccounted variability): 99.52%
+| H^2 (unaccounted variability / sampling variability):   206.94
+| R^2 (amount of heterogeneity accounted for):            3.52%
 | 
 | Test for Residual Heterogeneity:
-| QE(df = 132) = 16621.2676, p-val < .0001
+| QE(df = 131) = 11559.6653, p-val < .0001
 | 
-| Test of Moderators (coefficients 2:9):
-| QM(df = 8) = 14.2015, p-val = 0.0767
+| Test of Moderators (coefficients 2:10):
+| QM(df = 9) = 15.0683, p-val = 0.0891
 | 
 | Model Results:
 | 
-|                                   estimate       se     zval    pval     ci.lb 
-| intrcpt                            52.5749  34.0591   1.5436  0.1227  -14.1796 
-| Year                               -0.0260   0.0169  -1.5372  0.1243   -0.0591 
-| JBI_ClassificationMedium Quality   -0.2402   0.2087  -1.1510  0.2497   -0.6491 
-| use_guidelineNo Guideline           0.2375   0.3700   0.6418  0.5210   -0.4876 
-| SettingOther                       -0.5394   0.2193  -2.4599  0.0139   -0.9691 
-| ContinentAsia                       0.1081   0.2267   0.4766  0.6337   -0.3363 
-| ContinentEurope                     0.2608   0.2110   1.2358  0.2165   -0.1528 
-| ContinentOther                     -0.2833   0.2983  -0.9496  0.3423   -0.8680 
-| Sample_size                         0.0000   0.0000   0.8220  0.4111   -0.0000 
-|                                      ci.ub    
-| intrcpt                           119.3294    
-| Year                                0.0071    
-| JBI_ClassificationMedium Quality    0.1688    
-| use_guidelineNo Guideline           0.9626    
-| SettingOther                       -0.1096  * 
-| ContinentAsia                       0.5524    
-| ContinentEurope                     0.6744    
-| ContinentOther                      0.3014    
-| Sample_size                         0.0000    
+|                                   estimate      se     zval    pval    ci.lb 
+| intrcpt                             0.3849  0.1908   2.0179  0.0436   0.0110 
+| Year_ordinal2016-2020              -0.3034  0.2103  -1.4422  0.1492  -0.7156 
+| Year_ordinal2021-2025              -0.3589  0.2112  -1.6993  0.0893  -0.7729 
+| JBI_ClassificationMedium Quality   -0.2186  0.2110  -1.0361  0.3002  -0.6323 
+| use_guidelineNo Guideline           0.2188  0.3715   0.5889  0.5559  -0.5094 
+| SettingOther                       -0.5228  0.2218  -2.3571  0.0184  -0.9575 
+| ContinentAsia                       0.1119  0.2252   0.4968  0.6193  -0.3295 
+| ContinentEurope                     0.2583  0.2102   1.2290  0.2191  -0.1536 
+| ContinentOther                     -0.2933  0.2965  -0.9894  0.3225  -0.8744 
+| Sample_scaled_100                   0.0001  0.0001   0.7741  0.4389  -0.0001 
+|                                     ci.ub    
+| intrcpt                            0.7588  * 
+| Year_ordinal2016-2020              0.1089    
+| Year_ordinal2021-2025              0.0551  . 
+| JBI_ClassificationMedium Quality   0.1950    
+| use_guidelineNo Guideline          0.9470    
+| SettingOther                      -0.0881  * 
+| ContinentAsia                      0.5533    
+| ContinentEurope                    0.6702    
+| ContinentOther                     0.2878    
+| Sample_scaled_100                  0.0003    
 | 
 | ---
 | Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1

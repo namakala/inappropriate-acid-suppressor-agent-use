@@ -2,80 +2,80 @@ name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iterat
 fpath|stem|38757016eab15583|809f45dcd5ede807|88785947d3fd21e6|-530540549|data/raw/data.csv|t20581.4470998698s|s31053b|31053|file|local|vector|||0.075||
 tbl|stem|1e851708e5d28468|7cecc88e5b740def|5ba76d82c6ba9a53|1753415084||t20581.4472116111s|s10136b|10136|rds|local|vector|||0.162||
 readme|stem|c5d8d13182d23e4c|8b3a75d81f94f744|2c530c1562a7fbd1|980901812|README.md*README.qmd|t20593.5552845877s|s13448b|13448|file|local|vector|||9.152||
-tbl_clean|stem|db378b2c1681c36f|9d46ba4b0e257f0e|1a56b86dad242df6|1943731114||t20603.4942664302s|s15208b|15208|rds|local|vector|||0.022||
-mod_metareg_Age|stem|93d25b40ad83c798|985d1acaa2db4176|d858e9962490c8be|418752239||t20603.4943716279s|s25095b|25095|rds|local|vector|||4.495||
-mod_prop_sens_pft|stem|a0651c7377f1e4f5|75e8f9e8b63b1485|446fc9b3b9af8816|-792881060||t20603.4943810901s|s25374b|25374|rds|local|vector|||0.176||
-mod_metareg_mv|stem|4c85a30cd3db7fc6|01596653f7d310f5|86752447cb2fb686|666694482||t20603.4943850931s|s37015b|37015|rds|local|vector|||0.065||
-mod_metareg_JBI_Classification|stem|58b1d9b2240aab10|f91f92a806c04601|d858e9962490c8be|-644420020||t20603.4943914093s|s31320b|31320|rds|local|vector|||0.045||
-mod_copas_subgroup_JBI_Classification|stem|a73a1d4d8cb81134|cc59beebb501c10d|76fb72f811a25b74|63113237||t20603.4944018363s|s1324239b|1324239|rds|local|vector|||8.723|NaNs produced. NaNs produced. NaNs produced|
-mod_metareg_use_guideline|stem|134beaf528c82f37|1a183b80696aa0ab|d858e9962490c8be|-1342049052||t20603.494449949s|s31099b|31099|rds|local|vector|||0.05||
-mod_metareg_Setting|stem|f0e84decce8b1cb3|e97ce0860aea2010|d858e9962490c8be|-56748310||t20603.4944580903s|s31108b|31108|rds|local|vector|||0.053||
-mod_copas_subgroup_Age|stem|b10b1522bde9d6b3|d0ce00d4ce664447|76fb72f811a25b74|-671745572||t20603.4944833507s|s1303416b|1303416|rds|local|vector|||4.426|NaNs produced. NaNs produced. NaNs produced|
-mod_prop_sens_logit|stem|505e4219c1578665|88adfb127408ff31|446fc9b3b9af8816|703976236||t20603.4945132088s|s26789b|26789|rds|local|vector|||0.276||
-mod_prop|stem|9b459e8c3c7a24ef|fd9868083d055a55|446fc9b3b9af8816|794110157||t20603.4945766334s|s1067180b|1067180|rds|local|vector|||0.434||
-plt_forest_prop|stem|ee0c750f8e60c787|5d93aed313078f9e|aebfcd21e23c9ac9|-1219631873||t20603.4945925464s|s5049b|5049|rds|local|vector|||0.576|conversion failure on 'Villamañán, et al. (2015)' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al. (2019)' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
-mod_copas_subgroup_use_guideline|stem|c32d6f7d6eb9e2d4|972220e085c79e69|76fb72f811a25b74|1729832472||t20603.4945978082s|s1322667b|1322667|rds|local|vector|||3.608|NaNs produced. NaNs produced|
-mod_metareg_Continent|stem|107010a236b9f0ff|9c5af9e61733e2ec|d858e9962490c8be|82995815||t20603.4945988022s|s31918b|31918|rds|local|vector|||0.076||
-mod_copas_subgroup_Setting|stem|8f4b27351411a5ea|81ec9869dc8ef29c|76fb72f811a25b74|59135725||t20603.4946023796s|s1699138b|1699138|rds|local|vector|||7.073|NaNs produced|
-mod_copas_subgroup_Continent|stem|091009e343ddd5e7|8025b43241ae89b9|76fb72f811a25b74|1707500982||t20603.4946094007s|s2603823b|2603823|rds|local|vector|||7.538|NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced|
-plt_funnel_prop|stem|9164045b9f552535|0511880fa7f0fa9f|5b56798ba23bfeae|-319197324||t20603.4946489881s|s2583b|2583|rds|local|vector|||0.039||
 sens_overall_tbl|stem|d7f82a046c7e132f|4275ee5293490b68|4ddc5d21754d36d8|1979391188||t20603.4946976392s|s376b|376|rds|local|vector|||0.076||
-mod_copas_prop|stem|7c10d661aa774c03|b40ab7d30627e459|c06b12cfc5f26e23|314813646||t20603.4947295262s|s1071502b|1071502|rds|local|vector|||2.367||
-mod_subgroup_sens_logit_Setting|stem|162f9c91d8ce1956|d94c082331cbb537|c543e14993394330|1812057423||t20603.6109478756s|s28128b|28128|rds|local|vector|||3.712||
-mod_subgroup_sens_pft_Continent|stem|9d9f41d06461ef5a|fd4a85ed5f0a9349|c543e14993394330|1637052139||t20603.6109673336s|s27287b|27287|rds|local|vector|||4.735||
-mod_subgroup_sens_logit_Continent|stem|1404d16bf4ea7b6f|5aec15830e63e9ba|c543e14993394330|1941404955||t20603.6109685902s|s28697b|28697|rds|local|vector|||0.836||
-mod_subgroup_Continent|stem|ac39ca5ae91eefd5|4e49baa75c3e95ad|c543e14993394330|1325324372||t20603.6109708618s|s671886b|671886|rds|local|vector|||5.348||
-mod_subgroup_sens_logit_use_guideline|stem|6047cd145052066a|43534e450ba0281f|c543e14993394330|-1602960321||t20603.6109760395s|s28269b|28269|rds|local|vector|||4.681||
-mod_subgroup_sens_pft_Age|stem|4a484407e50bfdea|0b661ef6369178a0|c543e14993394330|2010276707||t20603.6109812616s|s14794b|14794|rds|local|vector|||0.192||
-sens_subgroup_Continent|stem|b76ed0eeab4cb4b6|5008a9e0c601ef3e|24ce6287b16bec12|862080356||t20603.6109904305s|s540b|540|rds|local|vector|||0.063||
-mod_subgroup_sens_pft_use_guideline|stem|2a17fcad2eba8de4|a60ce5b72e618694|c543e14993394330|2031371431||t20603.6109933744s|s26841b|26841|rds|local|vector|||0.428||
-mod_subgroup_sens_pft_JBI_Classification|stem|ca2b67669630d14a|af71e6a6c2483f0c|c543e14993394330|512256308||t20603.6109981613s|s26846b|26846|rds|local|vector|||0.492||
 sens_subgroup_tbl_Continent|stem|d7f82a046c7e132f|b6cd09a0f570546f|1ea1586cd4ef9b6e|1973304150||t20603.6110027949s|s376b|376|rds|local|vector|||0.027||
-mod_subgroup_sens_logit_Age|stem|24b98c98cc65653e|fb070e6907190a2e|c543e14993394330|566627937||t20603.6110042026s|s15366b|15366|rds|local|vector|||0.163||
-mod_subgroup_Age|stem|aa379f0ca6597963|1de057f49b5dac23|c543e14993394330|1044776827||t20603.6110124691s|s653801b|653801|rds|local|vector|||1.85||
-mod_subgroup_sens_logit_JBI_Classification|stem|9cbe6b132bbb523a|4f36c97fa4d54e58|c543e14993394330|-561214027||t20603.6110137421s|s28275b|28275|rds|local|vector|||0.39||
-mod_subgroup_sens_pft_Setting|stem|e916de3ebd879d88|bfcf93d2afd4cd62|c543e14993394330|1560408599||t20603.6110327192s|s26712b|26712|rds|local|vector|||0.789||
-mod_subgroup_JBI_Classification|stem|219c73d5a89524ad|6e1653d5df197d13|c543e14993394330|-983823152||t20603.6110408747s|s671495b|671495|rds|local|vector|||2.012||
-plt_forest_subgroup_Age|stem|ab5b6be01d555e88|b74a70c6201bc658|8f9f98bd9e15d258|1385172362||t20603.6110439997s|s3156b|3156|rds|local|vector|||1.337|conversion failure on 'Villamañán, et al. (2015)' in 'mbcsToSbcs': for ñ (U+00F1)|
-mod_subgroup_use_guideline|stem|eba8937faf0faa6b|cdaf7139afa33922|c543e14993394330|1574898530||t20603.611046939s|s671496b|671496|rds|local|vector|||2.151||
-sens_overall|stem|b76ed0eeab4cb4b6|8dbd0c8ce08243eb|af8c4e851c1463b0|-2018738015||t20603.6110631851s|s540b|540|rds|local|vector|||0.033||
-plt_funnel_subgroup_JBI_Classification|stem|9164045b9f552535|58c688da969728bd|31e5883f03b1f78a|-547233941||t20603.6110634445s|s2583b|2583|rds|local|vector|||0.204||
-sens_subgroup_use_guideline|stem|b76ed0eeab4cb4b6|f680b20ea631a464|3e3c7976108e9d00|1938994527||t20603.6110635s|s540b|540|rds|local|vector|||0.035||
-mod_subgroup_Setting|stem|41764430bc0807bb|b0bd74cccccf37bd|c543e14993394330|-1148150178||t20603.6110714646s|s671420b|671420|rds|local|vector|||1.788||
 sens_subgroup_tbl_use_guideline|stem|d7f82a046c7e132f|5a6abdcabda57e36|ecc48af7854a5397|718439639||t20603.6110764369s|s376b|376|rds|local|vector|||0.084||
-plt_funnel_subgroup_Continent|stem|9164045b9f552535|25235da2537ef14b|97941a06fc6f9dc8|-1833395975||t20603.6110783804s|s2583b|2583|rds|local|vector|||0.215||
-sens_subgroup_Setting|stem|b76ed0eeab4cb4b6|289404b25ec5428c|7eb5a0e9f974ac11|1019066237||t20603.61108977s|s540b|540|rds|local|vector|||0.04||
-plt_funnel_subgroup_Age|stem|38f453b7f81c4ed1|2e09ad86794b4326|bff05e0ace5a2ca3|1410815420||t20603.6110948061s|s1492b|1492|rds|local|vector|||0.06||
-sens_subgroup_Age|stem|730e255754cbd1c4|9871a40e6802dbcf|3aa5b16c16f04e71|-689376823||t20603.6110989551s|s542b|542|rds|local|vector|||0.042||
 sens_subgroup_tbl_Setting|stem|d7f82a046c7e132f|990a76e6e52b71c2|ced078617698d313|-1575498888||t20603.6111071921s|s376b|376|rds|local|vector|||0.014||
 sens_subgroup_tbl_Age|stem|8f370835a6ee9c00|68b187aea9453a80|f2e27aa6f767e1ca|-2069123547||t20603.611118601s|s385b|385|rds|local|vector|||0.029||
-sens_subgroup_JBI_Classification|stem|b76ed0eeab4cb4b6|4a980683c5616bdb|f215950aa6e03397|-392248393||t20603.6111249176s|s540b|540|rds|local|vector|||0.031||
-plt_forest_subgroup_Continent|stem|e19e0a8f19a9ab7e|bc50c71ecb2ecd28|fd5f6761aab4e6ef|1197615728||t20603.611127384s|s5450b|5450|rds|local|vector|||4.5|conversion failure on 'Villamañán, et al. (2015)' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al. (2019)' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
-plt_funnel_subgroup_use_guideline|stem|9164045b9f552535|16125b5b9e819123|570ba61db563a3ea|406077047||t20603.6111340955s|s2583b|2583|rds|local|vector|||0.051||
 sens_subgroup_tbl_JBI_Classification|stem|d7f82a046c7e132f|fbb257deaf7cbe08|a1060dfaae6ac9e2|14167131||t20603.611139196s|s376b|376|rds|local|vector|||0.009||
-plt_forest_subgroup_JBI_Classification|stem|06d34a5fb40255b8|d7f59d8a9ad4e229|b434b03998ca7888|-842214966||t20603.6111557111s|s5308b|5308|rds|local|vector|||3.437|conversion failure on 'Villamañán, et al. (2015)' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al. (2019)' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
-plt_funnel_subgroup_Setting|stem|9164045b9f552535|8fb1e9003fd24cad|9803d7c9012124a6|-679070467||t20603.6111573912s|s2583b|2583|rds|local|vector|||0.245||
-plt_forest_subgroup_use_guideline|stem|61eb198d3a346e35|1b3675ca6db15947|4233b452b01928cd|-889681374||t20603.611163971s|s5224b|5224|rds|local|vector|||1.131|conversion failure on 'Villamañán, et al. (2015)' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al. (2019)' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
-plt_forest_subgroup_Setting|stem|237c66f76d474072|c60b6042cfc6d3be|d5ca28a7d765ef03|-288552749||t20603.6111646716s|s5288b|5288|rds|local|vector|||0.974|conversion failure on 'Villamañán, et al. (2015)' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al. (2019)' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
 readData|function|fa8676af4df3e7d0
 uni_vars|object|0080860a749cf75c
 fitMetareg|function|f38cab5aa71bd838
 reportSensitivity|function|7b1b2d42c59c0572
-funs|object|604cfa06e2696b46
+funs|object|c2216ff652b57cf6
 fitMetaprop|function|4d5e0256a3a4f188
 vizFunnel|function|7132687659f3941d
 vizForest|function|adc5118b91a7ef35
-clean|function|5eb91b424e8f872c
+clean|function|1dd0bc9f44bec422
 pkgs|object|baaf8c1678b0b905
 raws|object|bd113c5ba8d65d1c
-.Random.seed|object|dc6a3d8cbbb867f3
+.Random.seed|object|8c4611e530d1ca79
 backTransformMetric|function|5aa881f803c1139c
 pkgs_load|object|0c5ddf24abf09d0e
 seed|object|b831a550d92b48f0
-mv_vars|object|e49ee4cf5664a281
+mv_vars|object|7c2a53aa7d7bcbb6
 lsData|function|f3501a44679b5b7d
-applyCopas|function|ad8601ff8adf2df4
+applyCopas|function|ec5379414f6c89b5
 fitSubMetaprop|function|f038391a7da94639
 extractResults|function|d942b803b4275dc4
 compareModels|function|dcc435a2e9d69d72
-report|stem|1a7eb1c79676a0ff|61db29ca7edbae10|fa26fff8638ed654|787668912|docs/report.pdf*docs/report.qmd|t20603.6396964801s|s391387b|391387|file|local|vector|||10.523||
+tbl_clean|stem|8007313d7956fca2|9d46ba4b0e257f0e|07741e7acd74901d|1943731114||t20603.7977260368s|s15895b|15895|rds|local|vector|||0.022||
+mod_subgroup_Continent|stem|61354b8118ebf504|4e49baa75c3e95ad|1e74a9ddcd7f4bde|1325324372||t20603.7977941463s|s672744b|672744|rds|local|vector|||4.609||
+mod_subgroup_sens_logit_Setting|stem|ec9c732b8d6df553|d94c082331cbb537|1e74a9ddcd7f4bde|1812057423||t20603.7978164238s|s28860b|28860|rds|local|vector|||3.423||
+plt_funnel_subgroup_Continent|stem|9164045b9f552535|25235da2537ef14b|863c37c26a7dd85b|-1833395975||t20603.797827572s|s2583b|2583|rds|local|vector|||0.211||
+mod_subgroup_sens_pft_Continent|stem|ed8f9d36a3f837bd|fd4a85ed5f0a9349|1e74a9ddcd7f4bde|1637052139||t20603.7978339676s|s28060b|28060|rds|local|vector|||4.2||
+mod_metareg_Age|stem|b1e32913c6f7be0f|985d1acaa2db4176|2c779531f4ffbc1b|418752239||t20603.7978463584s|s25779b|25779|rds|local|vector|||0.084||
+mod_prop_sens_logit|stem|04865a2d83182d4c|88adfb127408ff31|a55abaf77c2fb103|703976236||t20603.7978584574s|s27468b|27468|rds|local|vector|||0.229||
+mod_prop|stem|df6ada7c6f04c587|fd9868083d055a55|a55abaf77c2fb103|794110157||t20603.7978644224s|s702475b|702475|rds|local|vector|||1.137||
+mod_metareg_use_guideline|stem|f1cf4ed43b924837|1a183b80696aa0ab|2c779531f4ffbc1b|-1342049052||t20603.7978657469s|s31796b|31796|rds|local|vector|||0.075||
+mod_metareg_JBI_Classification|stem|563766dfc2fb6148|f91f92a806c04601|2c779531f4ffbc1b|-644420020||t20603.7978749107s|s32022b|32022|rds|local|vector|||0.065||
+mod_subgroup_sens_logit_Continent|stem|13b2bf99c053bb43|5aec15830e63e9ba|1e74a9ddcd7f4bde|1941404955||t20603.7978906179s|s29462b|29462|rds|local|vector|||0.637||
+mod_subgroup_sens_logit_use_guideline|stem|02b87433f9ecf3b1|43534e450ba0281f|1e74a9ddcd7f4bde|-1602960321||t20603.7978975358s|s28931b|28931|rds|local|vector|||5.166||
+mod_copas_subgroup_JBI_Classification|stem|b2ebaf7fad4d7dc4|cc59beebb501c10d|4e0453af772f0094|63113237||t20603.7978988351s|s1324982b|1324982|rds|local|vector|||9.146|NaNs produced. NaNs produced. NaNs produced|
+sens_subgroup_Continent|stem|b76ed0eeab4cb4b6|5008a9e0c601ef3e|5b0ef0c2018307a3|862080356||t20603.7979096227s|s540b|540|rds|local|vector|||0.08||
+plt_forest_prop|stem|ee0c750f8e60c787|5d93aed313078f9e|61eafa1bd9302521|-1219631873||t20603.7979193838s|s5049b|5049|rds|local|vector|||3.605|conversion failure on 'Villamañán, et al. (2015)' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al. (2019)' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
+mod_subgroup_sens_pft_Age|stem|99fcc6a5da7631d4|0b661ef6369178a0|1e74a9ddcd7f4bde|2010276707||t20603.7979197757s|s15184b|15184|rds|local|vector|||0.45||
+mod_subgroup_sens_pft_use_guideline|stem|34bb2bcef5b4f8d9|a60ce5b72e618694|1e74a9ddcd7f4bde|2031371431||t20603.7979368649s|s27511b|27511|rds|local|vector|||0.436||
+mod_subgroup_sens_pft_JBI_Classification|stem|1a1e6156f4df349a|af71e6a6c2483f0c|1e74a9ddcd7f4bde|512256308||t20603.797945087s|s27516b|27516|rds|local|vector|||0.411||
+mod_subgroup_sens_logit_Age|stem|eca7e270e28bf7a8|fb070e6907190a2e|1e74a9ddcd7f4bde|566627937||t20603.7979463454s|s15746b|15746|rds|local|vector|||0.163||
+mod_subgroup_Age|stem|a57913600ba92b94|1de057f49b5dac23|1e74a9ddcd7f4bde|1044776827||t20603.7979477651s|s676170b|676170|rds|local|vector|||1.316||
+mod_prop_sens_pft|stem|9010bc0c375d83b6|75e8f9e8b63b1485|a55abaf77c2fb103|-792881060||t20603.7979620643s|s26062b|26062|rds|local|vector|||0.279||
+sens_overall|stem|b76ed0eeab4cb4b6|8dbd0c8ce08243eb|51b1e83ee10b164f|-2018738015||t20603.7979744751s|s540b|540|rds|local|vector|||0.035||
+mod_metareg_Continent|stem|07fdb24f5518e0ac|9c5af9e61733e2ec|2c779531f4ffbc1b|82995815||t20603.7979840548s|s32616b|32616|rds|local|vector|||0.056||
+plt_forest_subgroup_Age|stem|ab5b6be01d555e88|b74a70c6201bc658|a435ecd943e00b23|1385172362||t20603.7979902367s|s3156b|3156|rds|local|vector|||1.927|conversion failure on 'Villamañán, et al. (2015)' in 'mbcsToSbcs': for ñ (U+00F1)|
+mod_copas_subgroup_use_guideline|stem|6a6db84b47a1e167|972220e085c79e69|4e0453af772f0094|1729832472||t20603.7980513687s|s1733154b|1733154|rds|local|vector|||4.745|NaNs produced. NaNs produced|
+mod_subgroup_JBI_Classification|stem|87dac91758118cc7|6e1653d5df197d13|1e74a9ddcd7f4bde|-983823152||t20603.7980578884s|s1069171b|1069171|rds|local|vector|||0.862||
+mod_copas_subgroup_Setting|stem|35a385bdee0d91d4|81ec9869dc8ef29c|4e0453af772f0094|59135725||t20603.7980615529s|s1324160b|1324160|rds|local|vector|||3.369|NaNs produced|
+mod_subgroup_sens_logit_JBI_Classification|stem|3630e22084af2a5f|4f36c97fa4d54e58|1e74a9ddcd7f4bde|-561214027||t20603.7980631554s|s28940b|28940|rds|local|vector|||0.5||
+plt_funnel_subgroup_JBI_Classification|stem|9164045b9f552535|58c688da969728bd|bbd4ff0e63bf3918|-547233941||t20603.7980671444s|s2583b|2583|rds|local|vector|||0.092||
+mod_copas_subgroup_Continent|stem|8c51ec94e06c247f|8025b43241ae89b9|4e0453af772f0094|1707500982||t20603.7980710714s|s2571346b|2571346|rds|local|vector|||7.457|NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced. NaNs produced|
+sens_subgroup_JBI_Classification|stem|b76ed0eeab4cb4b6|4a980683c5616bdb|9dc13565f0495d90|-392248393||t20603.7980761292s|s540b|540|rds|local|vector|||0.051||
+mod_metareg_Setting|stem|11ce054cbf14f7bb|e97ce0860aea2010|2c779531f4ffbc1b|-56748310||t20603.7980822864s|s31811b|31811|rds|local|vector|||0.106||
+mod_subgroup_sens_pft_Setting|stem|87e7ba1580035dc4|bfcf93d2afd4cd62|1e74a9ddcd7f4bde|1560408599||t20603.7980924378s|s27449b|27449|rds|local|vector|||0.385||
+mod_metareg_mv|stem|bcc39565d84e05b6|01596653f7d310f5|1517f4f70c2d5759|666694482||t20603.7980984002s|s37883b|37883|rds|local|vector|||0.061||
+mod_subgroup_use_guideline|stem|f0b0773c2203707d|cdaf7139afa33922|1e74a9ddcd7f4bde|1574898530||t20603.7981028428s|s694327b|694327|rds|local|vector|||1.192||
+sens_subgroup_use_guideline|stem|b76ed0eeab4cb4b6|f680b20ea631a464|6c9ed847cc20b9f1|1938994527||t20603.7981087017s|s540b|540|rds|local|vector|||0.012||
+plt_forest_subgroup_Continent|stem|e19e0a8f19a9ab7e|bc50c71ecb2ecd28|05c4b4bbc4f71ffe|1197615728||t20603.7981132407s|s5450b|5450|rds|local|vector|||0.766|conversion failure on 'Villamañán, et al. (2015)' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al. (2019)' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
+plt_funnel_prop|stem|9164045b9f552535|0511880fa7f0fa9f|40a20876a39e32ce|-319197324||t20603.7981141286s|s2583b|2583|rds|local|vector|||0.163||
+plt_funnel_subgroup_Age|stem|38f453b7f81c4ed1|2e09ad86794b4326|d5a2ee21593dc957|1410815420||t20603.7981197846s|s1492b|1492|rds|local|vector|||0.02||
+mod_copas_subgroup_Age|stem|44f36dd337867386|d0ce00d4ce664447|4e0453af772f0094|-671745572||t20603.7981197129s|s1303993b|1303993|rds|local|vector|||1.424|NaNs produced. NaNs produced. NaNs produced|
+sens_subgroup_Age|stem|730e255754cbd1c4|9871a40e6802dbcf|7ae3106f6b76ebcc|-689376823||t20603.7981272907s|s542b|542|rds|local|vector|||0.014||
+plt_funnel_subgroup_use_guideline|stem|9164045b9f552535|16125b5b9e819123|e628a61bf6aa58cc|406077047||t20603.7981371638s|s2583b|2583|rds|local|vector|||0.016||
+mod_subgroup_Setting|stem|91ba153d8dd21688|b0bd74cccccf37bd|1e74a9ddcd7f4bde|-1148150178||t20603.798140063s|s1101253b|1101253|rds|local|vector|||0.57||
+mod_copas_prop|stem|cbe440e0cd1d138c|b40ab7d30627e459|72fdf14bf86b4d1c|314813646||t20603.7981510814s|s707283b|707283|rds|local|vector|||1.666||
+sens_subgroup_Setting|stem|b76ed0eeab4cb4b6|289404b25ec5428c|a92018b7d5e2fa92|1019066237||t20603.7981515386s|s540b|540|rds|local|vector|||0.041||
+plt_forest_subgroup_JBI_Classification|stem|06d34a5fb40255b8|d7f59d8a9ad4e229|06c73cc6747d8715|-842214966||t20603.7981534306s|s5308b|5308|rds|local|vector|||2.063|conversion failure on 'Villamañán, et al. (2015)' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al. (2019)' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
+plt_forest_subgroup_use_guideline|stem|61eb198d3a346e35|1b3675ca6db15947|42f7b399ae6d1f48|-889681374||t20603.7981775424s|s5224b|5224|rds|local|vector|||2.751|conversion failure on 'Villamañán, et al. (2015)' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al. (2019)' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
+plt_funnel_subgroup_Setting|stem|9164045b9f552535|8fb1e9003fd24cad|38df3941f654def9|-679070467||t20603.798179516s|s2583b|2583|rds|local|vector|||0.172||
+plt_forest_subgroup_Setting|stem|237c66f76d474072|c60b6042cfc6d3be|386e7e900f139b4d|-288552749||t20603.7981873968s|s5288b|5288|rds|local|vector|||1.252|conversion failure on 'Villamañán, et al. (2015)' in 'mbcsToSbcs': for ñ (U+00F1). for 'O’Connell, et al. (2019)' in 'mbcsToSbcs': ' substituted for ’ (U+2019)|
+report|stem|ec23afb11a7746ce|61db29ca7edbae10|33b2c05b4bffbe3f|787668912|docs/report.pdf*docs/report.qmd|t20603.7983200428s|s400436b|400436|file|local|vector|||12.953||

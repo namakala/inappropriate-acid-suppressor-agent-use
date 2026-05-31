@@ -3,8 +3,10 @@
 fitMetaprop <- function(tbl, sm = "PLOGIT", method = "GLMM", ...) {
   #' Meta-Analysis for Proportion
   #'
-  #' Fit meta-analyis model for proportion data with REML estimator,
-  #' Freeman-Tukey summary measure, and Hartung-Knapp CI calculation.
+  #' Fit a meta-analysis model for proportion data. By default, a generalized
+  #' linear mixed model (GLMM) with a logit link is used for pooling. Alternative
+  #' pooling methods, tau-squared estimators (e.g., REML), and confidence interval
+  #' adjustments (e.g., Hartung-Knapp) can be specified via the `...` argument.
   #'
   #' @param tbl A data frame object containing extracted information from the
   #' selected articles
@@ -122,7 +124,7 @@ applyCopas <- function(obj, varname = NULL, ...) {
   groups <- tbl[[varname]] |> unique() |> na.omit()
   sub_tbls <- lapply(groups, \(group) tbl %>% subset(.[[varname]] == group))
   sub_metas <- lapply(sub_tbls, \(sub_tbl) fitMetaprop(sub_tbl))
-  mod_copas <- lapply(sub_metas, applyCopas)
+  mod_copas <- setNames(lapply(sub_metas, applyCopas), groups)
 
   return(mod_copas)
 }

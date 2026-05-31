@@ -16,6 +16,12 @@ clean <- function(tbl, ...) {
       "author_year" = sprintf("%s (%d)", Author, Year),
       "Prevalence" = gsub(x = Prevalence, ",", ".") |> as.numeric(),
       "Sample_size" = as.integer(`Sample size`),
+      "Year_ordinal" = dplyr::case_when(
+        Year <= 2015 ~ "<2015",
+        Year <= 2020 ~ "2016-2020",
+        TRUE         ~ "2021-2025"
+      ) |> factor(levels = c("<2015", "2016-2020", "2021-2025")),
+      "Sample_scaled_100" = Sample_size / 100,
       "Inappropriate_indication" = as.integer(`Inappropriate indication`),
       "Continent" = dplyr::case_when(
         grepl(x = Continent, "Asia") ~ "Asia",

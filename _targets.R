@@ -28,8 +28,8 @@ uni_vars <- c(
 )
 
 mv_vars <- c(
-  "Year", "JBI_Classification", "use_guideline", "Setting", "Continent",
-  "Sample_size"
+  "Year_ordinal", "JBI_Classification", "use_guideline", "Setting", "Continent",
+  "Sample_scaled_100"
 )
 
 # Set the analysis pipeline
