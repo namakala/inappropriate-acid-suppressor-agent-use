@@ -39,7 +39,7 @@ Raw data were cleaned by harmonizing of study level variables and standardizing 
 
 ## Pooled Prevalence Estimation
 
-A generalized linear mixed model (GLMM) with a logit link was used to pool prevalence estimates. This one-step approach models the number of inappropriate prescriptions directly using the binomial likelihood, fully accounting for the binomial data structure and between-study heterogeneity. Between-study variance $\tau^2$ was estimated via restricted maximum likelihood. A 95% prediction interval was calculated to estimate the expected range of prevalence in future studies with similar characteristics.
+A generalized linear mixed model (GLMM) with a logit link was used to pool prevalence estimates. Specifically, a random-intercept logistic regression model (binomial-normal GLMM) was fitted, which models the number of inappropriate prescriptions directly using a binomial likelihood at the study level with a normally distributed random intercept to account for between-study heterogeneity. This one-step approach preserves the original binomial data structure rather than relying on transformed proportions. Between-study variance $\tau^2$ was estimated via maximum likelihood as part of the GLMM fitting procedure. A 95% prediction interval was calculated to estimate the expected range of prevalence in future studies with similar characteristics. For sensitivity analyses, alternative models using restricted maximum likelihood (REML) for $\tau^2$ estimation with Hartung-Knapp confidence interval adjustment were fitted under both logit and Freeman-Tukey double arcsine transformations.
 
 ## Assessment of Heterogeneity
 
